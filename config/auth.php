@@ -75,12 +75,12 @@ return [
     */
 
     'providers' => [
-        'userw' => [
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Entity\User::class,
         ],
 
-        'restaurant' => [
+        'restaurants' => [
             'driver' => 'eloquent',
             'model' => App\Entity\Restaurant::class,
         ],
