@@ -45,6 +45,16 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'restaurant' => [
+            'driver' => 'session',
+            'provider' => 'restaurants',
+        ],
     ],
 
     /*
@@ -65,15 +75,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'userw' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Entity\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'restaurant' => [
+            'driver' => 'eloquent',
+            'model' => App\Entity\Restaurant::class,
+        ],
     ],
 
     /*
