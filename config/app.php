@@ -177,6 +177,8 @@ return [
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
+	JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+
     ],
 
     /*
