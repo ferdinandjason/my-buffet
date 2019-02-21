@@ -37,4 +37,9 @@ class Restaurant extends Authenticatable implements Transformable
         Restaurant::ATTRIBUTE_NOMOR_TELEPON
     ];
 
+    public function menu()
+    {
+        return $this->belongsTo('App\Entities\MenuRestaurant');
+    }
+
 }

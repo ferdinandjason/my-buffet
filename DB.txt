@@ -21,7 +21,7 @@ nomor_telepon
 
 MENU
 id
-resto_id
+restaurant_id
 nama_makanan
 deskripsi
 harga
@@ -30,6 +30,8 @@ stok
 
 ORDER
 user_id
-restoran_id
+restaurant_id
 menu_id
 quantity
+
+nambah foto

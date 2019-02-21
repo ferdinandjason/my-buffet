@@ -11,7 +11,7 @@ use App\Http\Requests\RestaurantCreateRequest;
 use App\Http\Requests\RestaurantUpdateRequest;
 use App\Repositories\RestaurantRepository;
 use App\Validators\RestaurantValidator;
-Use App\Entity\Restaurant;
+Use App\Entities\Restaurant;
 
 /**
  * Class RestaurantsController.
@@ -70,6 +70,8 @@ class RestaurantsController extends Controller
 
         if(Auth::attempt($credentials, $remember)){
             return redirect()->route('restaurant.home');
+        } else {
+            return redirect()->back()->withInput($request->only('email', 'remember'));
         }
     }
 

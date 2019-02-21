@@ -77,12 +77,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Entity\User::class,
+            'model' => App\Entities\User::class,
         ],
 
         'restaurants' => [
             'driver' => 'eloquent',
-            'model' => App\Entity\Restaurant::class,
+            'model' => App\Entities\Restaurant::class,
         ],
     ],
 

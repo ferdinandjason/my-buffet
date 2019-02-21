@@ -14,12 +14,15 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Entities\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
+        'nama' => 'Administrator',
+        'username' => 'admin',
+        'email' => 'admin@express.buffet.com',
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'alamat' => 'Departemen Informatika ITS',
+        'nomor_telepon' => '0000000000',
+        'role' => 1,
         'remember_token' => Str::random(10),
     ];
 });

@@ -7,40 +7,38 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Repositories\UserRepository;
-use App\Validators\UserValidator;
-use App\Entities\User;
+use App\Http\Requests\MenuRestaurantCreateRequest;
+use App\Http\Requests\MenuRestaurantUpdateRequest;
+use App\Repositories\MenuRestaurantRepository;
+use App\Validators\MenuRestaurantValidator;
 
 /**
- * Class UsersController.
+ * Class MenuRestaurantsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class UsersController extends Controller
+class MenuRestaurantsController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var MenuRestaurantRepository
      */
     protected $repository;
 
     /**
-     * @var UserValidator
+     * @var MenuRestaurantValidator
      */
     protected $validator;
 
     /**
-     * UsersController constructor.
+     * MenuRestaurantsController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param MenuRestaurantRepository $repository
+     * @param MenuRestaurantValidator $validator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(MenuRestaurantRepository $repository, MenuRestaurantValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('quest:user')->except('logout');
     }
 
     /**
@@ -51,61 +49,38 @@ class UsersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->all();
+        $menuRestaurants = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $users,
+                'data' => $menuRestaurants,
             ]);
         }
 
-        return view('users.index', compact('users'));
-    }
-
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        $remember = $request['remember'];
-
-        if(Auth::attempt($credentials, $remember)){
-            if(Auth::role() == User::ROLE_NON_ADMIN){
-                return redirect()->route('users.home');
-            } elseif (Auth::role() == User::ROLE_ADMIN){
-                return redirect()->route('admin.home');
-            }
-        } else {
-            return redirect()->back()->withInput($request->only('email', 'remember'));
-        }
+        return view('menuRestaurants.index', compact('menuRestaurants'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserCreateRequest $request
+     * @param  MenuRestaurantCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(UserCreateRequest $request)
+    public function store(MenuRestaurantCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $user = $this->repository->create([
-                'nama' => $request['nama'],
-                'username' => $request['username'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
-                'alamat' => $request['alamat'],
-                'nomor_telepon' => $request['nomor_telepon'],
-            ]);
+            $menuRestaurant = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'User created.',
-                'data'    => $user->toArray(),
+                'message' => 'MenuRestaurant created.',
+                'data'    => $menuRestaurant->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -135,16 +110,16 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = $this->repository->find($id);
+        $menuRestaurant = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $user,
+                'data' => $menuRestaurant,
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('menuRestaurants.show', compact('menuRestaurant'));
     }
 
     /**
@@ -156,32 +131,32 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = $this->repository->find($id);
+        $menuRestaurant = $this->repository->find($id);
 
-        return view('users.edit', compact('user'));
+        return view('menuRestaurants.edit', compact('menuRestaurant'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserUpdateRequest $request
+     * @param  MenuRestaurantUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(MenuRestaurantUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $id);
+            $menuRestaurant = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'User updated.',
-                'data'    => $user->toArray(),
+                'message' => 'MenuRestaurant updated.',
+                'data'    => $menuRestaurant->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -219,11 +194,11 @@ class UsersController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'User deleted.',
+                'message' => 'MenuRestaurant deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return redirect()->back()->with('message', 'MenuRestaurant deleted.');
     }
 }

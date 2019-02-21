@@ -19,9 +19,11 @@ class RestaurantValidator extends LaravelValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-            'name' => 'string|required',
-            'email' => 'string|email|unique:users',
-            'password' => 'required|between:6,255',
+            'nama' => 'string|required',
+            'username' => 'string|required|unique:restaurants',
+            'password' => 'required|between:6,255|confirmed',
+            'alamat' => 'string|required',
+            'nomor_telepon' => 'string|required',
         ],
         ValidatorInterface::RULE_UPDATE => [],
     ];
