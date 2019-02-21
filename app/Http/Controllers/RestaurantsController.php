@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -40,7 +42,7 @@ class RestaurantsController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('quest:restaurant')->except('logout');
+        $this->middleware('guest:restaurant')->except('logout');
     }
 
     /**
@@ -61,6 +63,16 @@ class RestaurantsController extends Controller
         }
 
         return view('restaurants.index', compact('restaurants'));
+    }
+
+    public function formLogin()
+    {
+        return view('auth.login');
+    }
+
+    public function formRegister()
+    {
+        return view('auth.register');
     }
 
     public function authenticate(Request $request)

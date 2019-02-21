@@ -33,7 +33,7 @@ class RestaurantRepositoryEloquent extends BaseRepository implements RestaurantR
     public function validator()
     {
 
-        return RestaurantValidator::class;
+        return null;
     }
 
 

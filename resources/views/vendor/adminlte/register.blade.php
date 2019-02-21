@@ -15,7 +15,7 @@
 
         <div class="register-box-body">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.register_message') }}</p>
-            <form action="{{ url(config('adminlte.register_url', 'register')) }}" method="post">
+            <form action="{{ route('register.user.simpan') }}" method="post">
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('nama') ? 'has-error' : '' }}">
@@ -61,7 +61,7 @@
                 <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
                     <input type="password" name="password_confirmation" class="form-control"
                            placeholder="Konfirmasi Password">
-                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password_confirmation') }}</strong>

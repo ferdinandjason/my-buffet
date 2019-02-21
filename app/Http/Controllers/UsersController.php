@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -40,7 +42,7 @@ class UsersController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('quest:user')->except('logout');
+        $this->middleware('guest:user')->except('logout');
     }
 
     /**
@@ -63,19 +65,30 @@ class UsersController extends Controller
         return view('users.index', compact('users'));
     }
 
+    public function formLogin()
+    {
+        return view('auth.login');
+    }
+
+    public function formRegister()
+    {
+        return view('auth.register');
+    }
+
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('username', 'password');
         $remember = $request['remember'];
 
         if(Auth::attempt($credentials, $remember)){
-            if(Auth::role() == User::ROLE_NON_ADMIN){
+            if(Auth::user()->role == User::ROLE_NON_ADMIN){
                 return redirect()->route('users.home');
-            } elseif (Auth::role() == User::ROLE_ADMIN){
+            } elseif (Auth::user()->role == User::ROLE_ADMIN){
                 return redirect()->route('admin.home');
             }
         } else {
-            return redirect()->back()->withInput($request->only('email', 'remember'));
+            echo "SALAH";
+            return redirect()->back()->withInput($request->only('username', 'remember'));
         }
     }
 
@@ -91,8 +104,8 @@ class UsersController extends Controller
     public function store(UserCreateRequest $request)
     {
         try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            //dd($this->validator->with($request->all())->passesOrFail());
+            $this->validator->with($request->all())->passesOrFail();
 
             $user = $this->repository->create([
                 'nama' => $request['nama'],
@@ -115,6 +128,7 @@ class UsersController extends Controller
 
             return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
+            dd($e);
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,

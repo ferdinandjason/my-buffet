@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
-use Prettus\Repository\Providers\RepositoryServiceProvider;
+use App\Providers\RepositoryServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
