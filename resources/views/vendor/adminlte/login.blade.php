@@ -3,6 +3,7 @@
 @section('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/iCheck/square/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/auth.css') }}">
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
     @yield('css')
 @stop
 
@@ -11,7 +12,7 @@
 @section('body')
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}"><b>Express</b>Buffet</a>
+            <b>Sign</b>In
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
@@ -22,7 +23,7 @@
                 <div class="form-group has-feedback {{ $errors->has('username') ? 'has-error' : '' }}">
                     <input type="text" name="username" class="form-control" value="{{ old('username') }}"
                            placeholder="Username">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -68,6 +69,15 @@
             </div>
         </div>
         <!-- /.login-box-body -->
+    
+        @if( strpos(url()->current(), 'user') !== false)
+        <div class="restaurant-owner">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url('/login/restaurant') }}'">
+                Are You a Restaurant Owner?
+            </button>
+        </div>
+        @endif
+
     </div><!-- /.login-box -->
 @stop
 

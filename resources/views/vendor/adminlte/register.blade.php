@@ -2,6 +2,7 @@
 
 @section('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/auth.css') }}">
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
     @yield('css')
 @stop
 
@@ -10,7 +11,7 @@
 @section('body')
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}"><b>Sign</b>Up</a>
+            <b>Sign</b>Up
         </div>
 
         <div class="register-box-body">
@@ -71,7 +72,7 @@
                 <div class="form-group has-feedback {{ $errors->has('alamat') ? 'has-error' : '' }}">
                     <input type="text" name="alamat" class="form-control" value="{{ old('alamat') }}"
                            placeholder="Alamat">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-home form-control-feedback"></span>
                     @if ($errors->has('alamat'))
                         <span class="help-block">
                             <strong>{{ $errors->first('alamat') }}</strong>
@@ -81,7 +82,7 @@
                 <div class="form-group has-feedback {{ $errors->has('nomor_telepon') ? 'has-error' : '' }}">
                     <input type="text" name="nomor_telepon" class="form-control" value="{{ old('nomor_telepon') }}"
                            placeholder="Nomor Telepon">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                     @if ($errors->has('nomor_telepon'))
                         <span class="help-block">
                             <strong>{{ $errors->first('nomor_telepon') }}</strong>
@@ -98,6 +99,15 @@
             </div>
         </div>
         <!-- /.form-box -->
+        
+        @if( strpos(url()->current(), 'user') !== false)
+        <div class="restaurant-owner">
+            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url('/register/restaurant') }}'">
+                Are You a Restaurant Owner?
+            </button>
+        </div>
+        @endif
+
     </div><!-- /.register-box -->
 @stop
 

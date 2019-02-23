@@ -33,6 +33,9 @@ Route::prefix('login')->group(function (){
 
 Route::prefix('register')->group(function (){
     Route::name('register.')->group(function () {
+        Route::get('/', function() {
+            return redirect('/register/user');
+        });
         Route::get('user', 'UsersController@formRegister')->name('user');
         Route::post('user', 'UsersController@store')->name('user.simpan');
         Route::get('restaurant', 'RestaurantsController@formRegister')->name('restaurant');
