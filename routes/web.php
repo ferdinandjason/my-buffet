@@ -42,3 +42,43 @@ Route::prefix('register')->group(function (){
         Route::post('restaurant', 'RestaurantsController@store')->name('restaurant.simpan');
     });
 });
+
+Route::prefix('restaurant')->group(function (){
+    Route::name('restaurant.')->group(function (){
+        Route::get('home', function() {
+            return view('restaurant.home');
+        })->name('home');
+
+        Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
+        Route::post('menu/add', 'MenuRestaurantsController@store')->name('menu.store');
+        Route::get('menu/update/{id}', 'MenuRestaurantsController@edit')->name('menu.edit');
+        Route::post('menu/update/{id}', 'MenuRestaurantsController@update')->name('menu.update');
+        Route::delete('menu/delete/{id}', 'MenuRestaurantsController@delete')->name('menu.delete');
+
+        Route::get('profile', 'RestaurantsController@show')->name('show');
+        Route::get('profile/update', 'RestaurantsController@edit')->name('edit');
+        Route::post('profile/update', 'RestaurantsController@update')->name('update');
+    });
+});
+
+Route::prefix('user')->group(function (){
+    Route::name('user.')->group(function (){
+        Route::get('home', function() {
+            return view('user.home');
+        })->name('home');
+
+        Route::get('order', 'UsersController@restaurant')->name('order');
+        Route::post('order', 'UsersController@finalizeOrder')->name('order.final');
+    });
+});
+
+Route::prefix('admin')->group(function (){
+    Route::name('admin.')->group(function (){
+        Route::get('home', function() {
+            return view('admin.home');
+        })->name('home');
+        Route::get('restaurant', 'RestaurantsController@index')->name('restaurant.list');
+        Route::get('user', 'UsersController@index')->name('user.list');
+    });
+});
+

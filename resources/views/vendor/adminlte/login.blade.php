@@ -17,7 +17,7 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
-            <form action="{{ route('login.user.auth') }}" method="post">
+            <form action="{{ (strpos(url()->current(), 'user') !== false) ? route('login.user.auth') : route('login.restaurant.auth') }}" method="post">
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('username') ? 'has-error' : '' }}">
