@@ -82,7 +82,7 @@ class UsersController extends Controller
 
         if(Auth::attempt($credentials, $remember)){
             if(Auth::user()->role == User::ROLE_NON_ADMIN){
-                return redirect()->route('users.home');
+                return redirect()->route('user.home');
             } elseif (Auth::user()->role == User::ROLE_ADMIN){
                 return redirect()->route('admin.home');
             }
