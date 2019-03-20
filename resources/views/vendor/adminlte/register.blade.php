@@ -16,7 +16,7 @@
 
         <div class="register-box-body">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.register_message') }}</p>
-            <form action="{{ route('register.user.simpan') }}" method="post">
+            <form action="{{ (strpos(url()->current(), 'user') !== false) ? route('register.user.simpan') : route('register.restaurant.simpan') }}" method="post">
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('nama') ? 'has-error' : '' }}">

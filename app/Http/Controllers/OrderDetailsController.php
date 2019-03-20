@@ -3,46 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\RestaurantCreateRequest;
-use App\Http\Requests\RestaurantUpdateRequest;
-use App\Repositories\RestaurantRepository;
-use App\Validators\RestaurantValidator;
-Use App\Entities\Restaurant;
+use App\Http\Requests\OrderDetailCreateRequest;
+use App\Http\Requests\OrderDetailUpdateRequest;
+use App\Repositories\OrderDetailRepository;
+use App\Validators\OrderDetailValidator;
 
 /**
- * Class RestaurantsController.
+ * Class OrderDetailsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class RestaurantsController extends Controller
+class OrderDetailsController extends Controller
 {
     /**
-     * @var RestaurantRepository
+     * @var OrderDetailRepository
      */
     protected $repository;
 
     /**
-     * @var RestaurantValidator
+     * @var OrderDetailValidator
      */
     protected $validator;
 
     /**
-     * RestaurantsController constructor.
+     * OrderDetailsController constructor.
      *
-     * @param RestaurantRepository $repository
-     * @param RestaurantValidator $validator
+     * @param OrderDetailRepository $repository
+     * @param OrderDetailValidator $validator
      */
-    public function __construct(RestaurantRepository $repository, RestaurantValidator $validator)
+    public function __construct(OrderDetailRepository $repository, OrderDetailValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('guest:restaurant')->except('logout');
     }
 
     /**
@@ -53,66 +49,38 @@ class RestaurantsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $restaurants = $this->repository->all();
+        $orderDetails = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $restaurants,
+                'data' => $orderDetails,
             ]);
         }
 
-        return view('restaurants.index', compact('restaurants'));
-    }
-
-    public function formLogin()
-    {
-        return view('auth.login');
-    }
-
-    public function formRegister()
-    {
-        return view('auth.register');
-    }
-
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('username', 'password');
-        $remember = $request['remember'];
-
-        if(Auth::guard('restaurant')->attempt($credentials, $remember)){
-            return redirect()->route('restaurant.home');
-        } else {
-            return redirect()->back()->withInput($request->only('username', 'remember'));
-        }
+        return view('orderDetails.index', compact('orderDetails'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RestaurantCreateRequest $request
+     * @param  OrderDetailCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(RestaurantCreateRequest $request)
+    public function store(OrderDetailCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $restaurant = $this->repository->create([
-                'nama' => $request['nama'],
-                'username' => $request['username'],
-                'password' => Hash::make($request['password']),
-                'alamat' => $request['alamat'],
-                'nomor_telepon' => $request['nomor_telepon'],
-            ]);
+            $orderDetail = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Restaurant created.',
-                'data'    => $restaurant->toArray(),
+                'message' => 'OrderDetail created.',
+                'data'    => $orderDetail->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -142,16 +110,16 @@ class RestaurantsController extends Controller
      */
     public function show($id)
     {
-        $restaurant = $this->repository->find($id);
+        $orderDetail = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $restaurant,
+                'data' => $orderDetail,
             ]);
         }
 
-        return view('restaurants.show', compact('restaurant'));
+        return view('orderDetails.show', compact('orderDetail'));
     }
 
     /**
@@ -163,32 +131,32 @@ class RestaurantsController extends Controller
      */
     public function edit($id)
     {
-        $restaurant = $this->repository->find($id);
+        $orderDetail = $this->repository->find($id);
 
-        return view('restaurants.edit', compact('restaurant'));
+        return view('orderDetails.edit', compact('orderDetail'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  RestaurantUpdateRequest $request
+     * @param  OrderDetailUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(RestaurantUpdateRequest $request, $id)
+    public function update(OrderDetailUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $restaurant = $this->repository->update($request->all(), $id);
+            $orderDetail = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Restaurant updated.',
-                'data'    => $restaurant->toArray(),
+                'message' => 'OrderDetail updated.',
+                'data'    => $orderDetail->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -226,11 +194,11 @@ class RestaurantsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Restaurant deleted.',
+                'message' => 'OrderDetail deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Restaurant deleted.');
+        return redirect()->back()->with('message', 'OrderDetail deleted.');
     }
 }

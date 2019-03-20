@@ -80,7 +80,7 @@ class UsersController extends Controller
         $credentials = $request->only('username', 'password');
         $remember = $request['remember'];
 
-        if(Auth::attempt($credentials, $remember)){
+        if(Auth::guard('user')->attempt($credentials, $remember)){
             if(Auth::user()->role == User::ROLE_NON_ADMIN){
                 return redirect()->route('user.home');
             } elseif (Auth::user()->role == User::ROLE_ADMIN){

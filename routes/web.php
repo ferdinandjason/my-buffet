@@ -51,6 +51,8 @@ Route::prefix('restaurant')->group(function (){
             Route::get('home', function() {
                 return view('restaurant.home');
             })->name('home');
+
+            Route::get('order', 'OrdersController@indexRestaurant')->name('order.restaurant');
     
             Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
             Route::get('menu/new', 'MenuRestaurantsController@new')->name('menu.new');
