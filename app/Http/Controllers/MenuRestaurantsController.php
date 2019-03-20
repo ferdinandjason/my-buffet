@@ -61,6 +61,11 @@ class MenuRestaurantsController extends Controller
         return view('menuRestaurants.index', compact('menuRestaurants'));
     }
 
+    public function new()
+    {
+        return view('menuRestaurants.new');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
