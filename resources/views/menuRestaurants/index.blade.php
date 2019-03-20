@@ -31,9 +31,11 @@
                     <tr role="row">
                         <th rowspan="1" colspan="1">Gambar</th>
                         <th rowspan="1" colspan="1">Nama</th>
+                        <th rowspan="1" colspan="1">Deskripsi</th>
                         <th rowspan="1" colspan="1">Kategori</th>
                         <th rowspan="1" colspan="1">Stok</th>
                         <th rowspan="1" colspan="1">Harga</th>
+                        <th rowspan="1" colspan="1">Opsi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,16 +44,27 @@
                             <td>Safari 1.2</td>
                             <td>OSX.3</td>
                             <td>125.5</td>
-                            <td>A</td>
+                            <td>OSX.3</td>
+                            <td>125.5</td>
+                            <td>
+                                <button type="button" class="btn btn-info">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-info btn-danger">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th rowspan="1" colspan="1">Gambar</th>
                             <th rowspan="1" colspan="1">Nama</th>
+                            <th rowspan="1" colspan="1">Deskripsi</th>
                             <th rowspan="1" colspan="1">Kategori</th>
                             <th rowspan="1" colspan="1">Stok</th>
                             <th rowspan="1" colspan="1">Harga</th>
+                            <th rowspan="1" colspan="1">Opsi</th>
                         </tr>
                     </tfoot>
                 </table>
