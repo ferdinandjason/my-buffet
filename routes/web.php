@@ -55,15 +55,15 @@ Route::prefix('restaurant')->group(function (){
             Route::get('order', 'OrdersController@indexRestaurant')->name('order.restaurant');
     
             Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
-            Route::get('menu/new', 'MenuRestaurantsController@new')->name('menu.new');
+            Route::get('menu-new', 'MenuRestaurantsController@new')->name('menu.new');
             Route::post('menu/add', 'MenuRestaurantsController@store')->name('menu.store');
             Route::get('menu/update/{id}', 'MenuRestaurantsController@edit')->name('menu.edit');
             Route::post('menu/update/{id}', 'MenuRestaurantsController@update')->name('menu.update');
             Route::delete('menu/delete/{id}', 'MenuRestaurantsController@delete')->name('menu.delete');
     
-            Route::get('profile', 'RestaurantsController@show')->name('show');
-            Route::get('profile/update', 'RestaurantsController@edit')->name('edit');
-            Route::post('profile/update', 'RestaurantsController@update')->name('update');
+            Route::get('profile/{id}', 'RestaurantsController@show')->name('show');
+            Route::get('profile-update', 'RestaurantsController@edit')->name('edit');
+            Route::post('profile-update', 'RestaurantsController@update')->name('update');
         });
     });
 });

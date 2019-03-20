@@ -14,6 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        //dd(\Illuminate\Support\Facades\Auth::guard('restaurant')->check());
         if (! $request->expectsJson()) {
             return route('login');
         }

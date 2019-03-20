@@ -65,7 +65,7 @@ class OrdersController extends Controller
     public function indexRestaurant()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orders = $this->repository->findByField('restaurant_id', Auth('restaurant')->user()->id);
+        $orders = $this->repository->findByField('restaurant_id', 1);
 
         if (request()->wantsJson()) {
 

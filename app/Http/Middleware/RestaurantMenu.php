@@ -37,18 +37,18 @@ class RestaurantMenu
             ]);
             $event->menu->add([
                 'text' => 'Tambah menu',
-                'url'  => 'restaurant/menu/new',
+                'url'  => 'restaurant/menu-new',
                 'icon' => 'plus-square',
             ]);
             $event->menu->add('PROFILE');
             $event->menu->add([
                 'text' => 'Profile',
-                'url'  => 'restaurant/profile',
+                'url'  => 'restaurant/profile/'.Auth('restaurant')->user()->id,
                 'icon' => 'user',
             ]);
             $event->menu->add([
                 'text' => 'Profile Update',
-                'url'  => 'restaurant/profile/update',
+                'url'  => 'restaurant/profile-update',
                 'icon' => 'lock',
             ]);
         });

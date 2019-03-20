@@ -42,7 +42,7 @@ class RestaurantsController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('guest:restaurant')->except('logout');
+        $this->middleware('guest:restaurant')->except('logout','show');
     }
 
     /**
@@ -151,7 +151,7 @@ class RestaurantsController extends Controller
             ]);
         }
 
-        return view('restaurants.show', compact('restaurant'));
+        return view('restaurant.show', compact('restaurant'));
     }
 
     /**
