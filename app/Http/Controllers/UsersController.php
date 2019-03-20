@@ -92,6 +92,12 @@ class UsersController extends Controller
         }
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Buffet</b> Express',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>B</b>Ex',
 
     /*
     |--------------------------------------------------------------------------
@@ -89,7 +89,7 @@ return [
 
     'logout_url' => 'logout',
 
-    'logout_method' => null,
+    'logout_method' => 'get',
 
     'login_url' => 'login',
 
@@ -107,8 +107,9 @@ return [
     |
     */
 
+
     'menu' => [
-        'MAIN NAVIGATION',
+        /*'MAIN NAVIGATION',
         [
             'text' => 'Blog',
             'url'  => 'admin/blog',
@@ -182,7 +183,7 @@ return [
         [
             'text'       => 'Information',
             'icon_color' => 'aqua',
-        ],
+        ],*/
     ],
 
     /*

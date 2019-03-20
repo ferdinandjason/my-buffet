@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('logout', 'UsersController@logout')->name('logout');
+
 Route::prefix('login')->group(function (){
     Route::name('login.')->group(function () {
         Route::get('/', function() {
@@ -45,19 +47,22 @@ Route::prefix('register')->group(function (){
 
 Route::prefix('restaurant')->group(function (){
     Route::name('restaurant.')->group(function (){
-        Route::get('home', function() {
-            return view('restaurant.home');
-        })->name('home');
-
-        Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
-        Route::post('menu/add', 'MenuRestaurantsController@store')->name('menu.store');
-        Route::get('menu/update/{id}', 'MenuRestaurantsController@edit')->name('menu.edit');
-        Route::post('menu/update/{id}', 'MenuRestaurantsController@update')->name('menu.update');
-        Route::delete('menu/delete/{id}', 'MenuRestaurantsController@delete')->name('menu.delete');
-
-        Route::get('profile', 'RestaurantsController@show')->name('show');
-        Route::get('profile/update', 'RestaurantsController@edit')->name('edit');
-        Route::post('profile/update', 'RestaurantsController@update')->name('update');
+        Route::middleware(['restaurant.menu'])->group(function (){
+            Route::get('home', function() {
+                return view('restaurant.home');
+            })->name('home');
+    
+            Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
+            Route::get('menu/new', 'MenuRestaurantsController@new')->name('menu.new');
+            Route::post('menu/add', 'MenuRestaurantsController@store')->name('menu.store');
+            Route::get('menu/update/{id}', 'MenuRestaurantsController@edit')->name('menu.edit');
+            Route::post('menu/update/{id}', 'MenuRestaurantsController@update')->name('menu.update');
+            Route::delete('menu/delete/{id}', 'MenuRestaurantsController@delete')->name('menu.delete');
+    
+            Route::get('profile', 'RestaurantsController@show')->name('show');
+            Route::get('profile/update', 'RestaurantsController@edit')->name('edit');
+            Route::post('profile/update', 'RestaurantsController@update')->name('update');
+        });
     });
 });
 
