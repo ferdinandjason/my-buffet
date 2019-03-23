@@ -1,12 +1,115 @@
-@foreach ($orders as $order)
-    <p>{{$order->id}}</p>
-    <p>{{$order->user_id}}</p>
-    <p>{{$order->restaurant_id}}</p>
-    <p>{{$order->comments}}</p>
-    <p>{{$order->total}}</p>
-    @foreach ($order->details as $item)
-        <p>{{$item->menu_restaurant_id}}</p>
-        <p>{{$item->amount}}</p>
-        <p>{{$item->sub_total}}</p>
-    @endforeach
-@endforeach
+@extends('adminlte::page')
+
+@section('css')
+<style>
+    html, body {
+        padding-top: 0px !important;
+    }
+
+    .order-main-box {
+        border-top: None;
+    }
+
+    .box-header .col-md-4 .box-title {
+        font-size: 14px;
+    }
+
+    .box-body .table tr td:nth-child(1) {
+        padding-left:15px;
+        width: calc((5/12)*100%);
+    }
+
+    .box-body .table tr td:nth-child(2) {
+        padding-left:15px;
+        width: calc((3/12)*100%);
+    }
+
+    .box-body .table tr td:nth-child(3) {
+        padding-left: 15px;
+        width: calc((4/12)*100%);
+    }
+
+    .box-footer .done-order {
+        padding: 0 50px;
+    }
+
+</style>
+@stop
+
+@section('content_header')
+    <h1>
+        Hotel Order
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Hotel</a></li>
+        <li class="active">Order</li>
+    </ol>
+@stop
+
+@section('content')
+        <div class="box box-primary order-main-box">
+            <div class="box-body">
+            
+            <div class="row">
+            @foreach ($orders as $order)
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3 class="box-title">Order <b>#{{$order->id}}</b></h3>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    <h3 class="box-title">User Id <b>#{{$order->user_id}}</b></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table table-condensed">
+                                <tbody>
+                                @foreach ($order->details as $item)
+                                <tr>
+                                    <td>{{$item->menu_restaurant_id}}</td>
+                                    <td>{{$item->amount}}</td>
+                                    <td>{{$item->sub_total}}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p><b>Note: </b>{{$order->comments}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>Total: </b>{{$order->total}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="done-order">
+                                <button type="button" class="btn btn-primary btn-xs btn-block">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+
+            </div>
+        </div>
+        <!-- /.box -->
+@stop
+
+@section('js')
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        $('#menu-restoran').DataTable();
+    } );
+    </script>
+@stop
