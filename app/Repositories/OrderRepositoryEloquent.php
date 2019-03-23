@@ -44,5 +44,25 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function findOrderWithRestaurantId($id)
+    {
+        return $this->model->with(['details', 'user'])->where('restaurant_id',$id)->where('status',0)->get();
+    }
+
+    public function findOrderHistory($id)
+    {
+        return $this->model->with(['details', 'user'])->where('restaurant_id',$id)->where('status',1)->orWhere('status',2)->get();
+    }
+
+    public function changeStatusToDone($id)
+    {
+        $this->model->where('id',$id)->update(['status' => 1]);
+    }
+
+    public function changeStatusToPaid($id)
+    {
+        $this->model->where('id',$id)->update(['status' => 2]);
+    }
     
 }

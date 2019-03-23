@@ -53,6 +53,9 @@ Route::prefix('restaurant')->group(function (){
             })->name('home');
 
             Route::get('order', 'OrdersController@indexRestaurant')->name('order.restaurant');
+            Route::get('order-history', 'OrdersController@history')->name('order.history');
+            Route::post('order/done/{id}', 'OrdersController@done')->name('order.done');
+            Route::post('order/paid/{id}', 'OrdersController@paid')->name('order.paid');
     
             Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
             Route::get('menu-new', 'MenuRestaurantsController@new')->name('menu.new');

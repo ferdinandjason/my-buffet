@@ -70,7 +70,7 @@ class OrdersController extends Controller
     public function indexRestaurant()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orders = $this->repository->findByField('restaurant_id', 1);
+        $orders = $this->repository->findOrderWithRestaurantId(Auth('restaurant')->user()->id);
 
         if (request()->wantsJson()) {
 
@@ -80,6 +80,43 @@ class OrdersController extends Controller
         }
 
         return view('restaurant.order.index', compact('orders'));
+    }
+
+    public function history()
+    {
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $orders = $this->repository->findOrderHistory(Auth('restaurant')->user()->id);
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $orders,
+            ]);
+        }
+
+        return view('restaurant.order.history', compact('orders'));
+    }
+
+    public function done($id)
+    {
+        $this->repository->changeStatusToDone($id);
+
+        $response = [
+            'message' => 'Order updated.',
+        ];
+
+        return redirect()->back()->with('message', $response['message']);
+    }
+
+    public function paid($id)
+    {
+        $this->repository->changeStatusToPaid($id);
+
+        $response = [
+            'message' => 'Order updated.',
+        ];
+
+        return redirect()->back()->with('message', $response['message']);
     }
 
     /**

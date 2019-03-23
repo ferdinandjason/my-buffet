@@ -34,4 +34,8 @@ class OrderDetail extends Model implements Transformable
         OrderDetail::ATTRIBUTE_SUB_TOTAL,
     ];
 
+    public function menuRestaurant(){
+        return $this->belongsTo('App\Entities\MenuRestaurant');
+    }
+
 }

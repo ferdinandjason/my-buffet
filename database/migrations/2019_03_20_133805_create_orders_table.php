@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
 			$table->integer('restaurant_id')->unsigned();
 			$table->mediumText('comments')->nullable();
 			$table->bigInteger('total');
+			$table->integer('status')->default(0);
             $table->timestamps();
 		});
 	}

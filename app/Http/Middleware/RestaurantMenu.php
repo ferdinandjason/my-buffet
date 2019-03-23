@@ -29,6 +29,11 @@ class RestaurantMenu
                 'url'  => 'restaurant/order',
                 'icon' => 'sticky-note',
             ]);
+            $event->menu->add([
+                'text' => 'Order History',
+                'url'  => 'restaurant/order-history',
+                'icon' => 'sticky-note-o',
+            ]);
             $event->menu->add('MENU');
             $event->menu->add([
                 'text' => 'Menu',

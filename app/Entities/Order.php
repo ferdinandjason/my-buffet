@@ -38,4 +38,8 @@ class Order extends Model implements Transformable
         return $this->hasMany('App\Entities\OrderDetail');
     }
 
+    public function user(){
+        return $this->belongsTo('App\Entities\User');
+    }
+
 }

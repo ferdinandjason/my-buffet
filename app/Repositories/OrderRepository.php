@@ -12,4 +12,8 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface OrderRepository extends RepositoryInterface
 {
     //
+    public function findOrderWithRestaurantId($id);
+    public function findOrderHistory($id);
+    public function changeStatusToDone($id);
+    public function changeStatusToPaid($id);
 }

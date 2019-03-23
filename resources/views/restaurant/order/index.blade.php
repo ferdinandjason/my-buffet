@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                    <h3 class="box-title">User Id <b>#{{$order->user_id}}</b></h3>
+                                    <h3 class="box-title">User <b>{{$order->user->nama}}</b></h3>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 <tbody>
                                 @foreach ($order->details as $item)
                                 <tr>
-                                    <td>{{$item->menu_restaurant_id}}</td>
+                                    <td>{{$item->menuRestaurant->nama_makanan}}</td>
                                     <td>{{$item->amount}}</td>
                                     <td>{{$item->sub_total}}</td>
                                 </tr>
@@ -91,7 +91,10 @@
                             </div>
                             
                             <div class="done-order">
-                                <button type="button" class="btn btn-primary btn-xs btn-block">Done</button>
+                                <form action={{route('restaurant.order.done', ['id' => $order->id])}} method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-primary btn-xs btn-block">Done</button>
+                                </form>
                             </div>
                         </div>
                     </div>
