@@ -39,7 +39,7 @@ class Restaurant extends Authenticatable implements Transformable
 
     public function menu()
     {
-        return $this->belongsTo('App\Entities\MenuRestaurant');
+        return $this->hasMany('\App\Entities\MenuRestaurant');
     }
 
 }

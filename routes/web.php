@@ -57,9 +57,9 @@ Route::prefix('restaurant')->group(function (){
             Route::get('menu', 'MenuRestaurantsController@index')->name('menu.index');
             Route::get('menu-new', 'MenuRestaurantsController@new')->name('menu.new');
             Route::post('menu/add', 'MenuRestaurantsController@store')->name('menu.store');
-            Route::get('menu/update/{id}', 'MenuRestaurantsController@edit')->name('menu.edit');
-            Route::post('menu/update/{id}', 'MenuRestaurantsController@update')->name('menu.update');
-            Route::delete('menu/delete/{id}', 'MenuRestaurantsController@delete')->name('menu.delete');
+            Route::get('menu/{id}/edit', 'MenuRestaurantsController@edit')->name('menu.edit');
+            Route::post('menu/{id}/edit', 'MenuRestaurantsController@update')->name('menu.update');
+            Route::delete('menu/delete/{id}', 'MenuRestaurantsController@destroy')->name('menu.delete');
     
             Route::get('profile/{id}', 'RestaurantsController@show')->name('show');
             Route::get('profile-update', 'RestaurantsController@edit')->name('edit');
@@ -71,11 +71,11 @@ Route::prefix('restaurant')->group(function (){
 Route::prefix('user')->group(function (){
     Route::name('user.')->group(function (){
         Route::get('home', function() {
-            return view('user.home');
+            return view('users.home');
         })->name('home');
 
-        Route::get('order', 'UsersController@restaurant')->name('order');
-        Route::post('order', 'UsersController@finalizeOrder')->name('order.final');
+        Route::get('order', 'RestaurantsController@indexUser')->name('order');
+        Route::post('order', 'OrdersController@store')->name('order.final');
     });
 });
 

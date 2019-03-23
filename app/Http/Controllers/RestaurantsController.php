@@ -42,7 +42,7 @@ class RestaurantsController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('guest:restaurant')->except('logout','show');
+        //$this->middleware('guest:restaurant')->except('store','show','indexUser','formLogin','formRegister');
     }
 
     /**
@@ -63,6 +63,21 @@ class RestaurantsController extends Controller
         }
 
         return view('restaurants.index', compact('restaurants'));
+    }
+
+    public function indexUser()
+    {
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $restaurants = $this->repository->restaurantWithMenu();
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $restaurants,
+            ]);
+        }
+
+        return view('users.order', compact('restaurants'));
     }
 
     public function formLogin()

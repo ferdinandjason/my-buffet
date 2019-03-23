@@ -16,7 +16,8 @@ class CreateOrderDetailsTable extends Migration
 	public function up()
 	{
 		Schema::create('order_details', function(Blueprint $table) {
-            $table->increments('id');
+			$table->increments('id');
+			$table->integer('order_id')->unsigned();
 			$table->integer('menu_restaurant_id')->unsigned();
 			$table->integer('amount');
 			$table->integer('sub_total');

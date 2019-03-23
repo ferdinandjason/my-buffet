@@ -20,6 +20,7 @@ class CreateMenuRestaurantsTable extends Migration
 			$table->integer('restaurant_id')->unsigned();
 			$table->string('nama_makanan');
 			$table->longText('deskripsi');
+			$table->string('kategori');
 			$table->bigInteger('harga');
 			$table->string('foto');
 			$table->integer('stok');

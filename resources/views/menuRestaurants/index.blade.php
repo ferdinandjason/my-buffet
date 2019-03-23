@@ -21,7 +21,7 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title">Menu</h3>
             </div>
@@ -39,22 +39,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr role="row" class="odd">
-                            <td class="sorting_1">Webkit</td>
-                            <td>Safari 1.2</td>
-                            <td>OSX.3</td>
-                            <td>125.5</td>
-                            <td>OSX.3</td>
-                            <td>125.5</td>
-                            <td>
-                                <button type="button" class="btn btn-info">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="btn btn-info btn-danger">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach ($menuRestaurants as $menu)
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">
+                                    <img src="{{Storage::url($menu->foto)}}" style="height: 140px;width: 140px;"/>
+                                </td>
+                                <td>{{$menu->nama_makanan}}</td>
+                                <td>{{$menu->deskripsi}}</td>
+                                <td>{{$menu->kategori}}</td>
+                                <td>{{$menu->stok}}</td>
+                                <td>{{$menu->harga}}</td>
+                                <td>
+                                    <div style="display:flex">
+                                        <button type="button" class="btn btn-info">
+                                            <a href="{{$menu->id}}/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                        </button>
+                                        <form action="{{'menu/delete/'.$menu->id}}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}                                
+                                            <button type="submit" class="btn btn-info btn-danger">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr>

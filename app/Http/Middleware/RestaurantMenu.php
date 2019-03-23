@@ -46,11 +46,6 @@ class RestaurantMenu
                 'url'  => 'restaurant/profile/'.Auth('restaurant')->user()->id,
                 'icon' => 'user',
             ]);
-            $event->menu->add([
-                'text' => 'Profile Update',
-                'url'  => 'restaurant/profile-update',
-                'icon' => 'lock',
-            ]);
         });
 
         return $next($request);

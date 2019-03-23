@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('restaurant_id')->unsigned();
-			$table->mediumText('comments');
+			$table->mediumText('comments')->nullable();
 			$table->bigInteger('total');
             $table->timestamps();
 		});

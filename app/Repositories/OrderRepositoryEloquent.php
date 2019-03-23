@@ -33,7 +33,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function validator()
     {
 
-        return OrderValidator::class;
+        return null;
     }
 
 

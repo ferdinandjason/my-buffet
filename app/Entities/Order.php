@@ -20,7 +20,19 @@ class Order extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    const ATTRIBUTE_ID = 'id';
+    const ATTRIBUTE_USER_ID = 'user_id';
+    const ATTRIBUTE_RESTAURANT_ID = 'restaurant_id';
+    const ATTRIBUTE_COMMENTS = 'comments';
+    const ATTRIBUTE_TOTAL = 'total';
+
+    protected $fillable = [
+        Order::ATTRIBUTE_ID,
+        Order::ATTRIBUTE_USER_ID,
+        Order::ATTRIBUTE_RESTAURANT_ID,
+        Order::ATTRIBUTE_COMMENTS,
+        Order::ATTRIBUTE_TOTAL,
+    ];
 
     public function details(){
         return $this->hasMany('App\Entities\OrderDetail');

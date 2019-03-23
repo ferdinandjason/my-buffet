@@ -48,29 +48,29 @@
 
 <div class="box box-primary">
     <div class="row">
-        <form role="form">
-            
+        <form role="form" method="POST" action="{{route('restaurant.menu.store')}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="box-body">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label for="menuNama">Nama</label>
-                        <input type="text" class="form-control" id="menuNama" placeholder="Nama menu">
+                        <label for="nama_makanan">Nama</label>
+                        <input type="text" class="form-control" id="nama_makanan" name="nama_makanan" placeholder="Nama menu">
                     </div>
                     <div class="form-group">
-                        <label for="menuDeskripsi">Deskripsi</label>
-                        <input type="text" class="form-control" id="menuDeskripsi" placeholder="Deskripsi menu">
+                        <label for="deskripsi">Deskripsi</label>
+                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi menu">
                     </div>
                     <div class="form-group">
-                        <label for="menuKategori">Kategori</label>
-                        <input type="text" class="form-control" id="menuKategori" placeholder="Kategori menu">
+                        <label for="kategori">Kategori</label>
+                        <input type="text" class="form-control" id="kategori" name="kategori" placeholder="Kategori menu">
                     </div>
                     <div class="form-group">
-                        <label for="menuStok">Stok</label>
-                        <input type="text" class="form-control" id="menuStok" placeholder="Stok">
+                        <label for="stok">Stok</label>
+                        <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok">
                     </div>
                     <div class="form-group">
-                        <label for="menuHarga">Harga</label>
-                        <input type="text" class="form-control" id="menuHarga" placeholder="Harga menu">
+                        <label for="harga">Harga</label>
+                        <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga menu">
                     </div>
                 </div>
 
@@ -80,8 +80,8 @@
                             <img id="foodImage" src="{{asset('/images/foodbefore.jpg')}}" alt="your image"/>
                         </div>
 
-                        <label for="menuGambar">Gambar</label>
-                        <input type="file" id="menuGambar">
+                        <label for="foto">Gambar</label>
+                        <input type="file" id="foto" name="foto">
 
                         <p class="help-block">Gambar harus dalam resolusi 1:1</p>
                     </div>
@@ -89,6 +89,8 @@
                 
                 
             </div>
+            <input type="hidden" id="restaurant_id" name="restaurant_id" value="{{\Auth('restaurant')->user()->id}}"/>
+            
             <div class="col-md-12">
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -119,7 +121,7 @@
             }
         }
 
-        $("#menuGambar").change(function() {
+        $("#foto").change(function() {
             readURL(this);
         });
 

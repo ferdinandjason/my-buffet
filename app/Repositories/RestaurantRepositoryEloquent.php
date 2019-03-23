@@ -44,5 +44,10 @@ class RestaurantRepositoryEloquent extends BaseRepository implements RestaurantR
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function restaurantWithMenu()
+    {
+        return Restaurant::with('menu')->get();
+    }
     
 }

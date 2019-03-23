@@ -11,6 +11,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\OrderCreateRequest;
 use App\Http\Requests\OrderUpdateRequest;
 use App\Repositories\OrderRepository;
+use App\Repositories\OrderDetailRepository;
 use App\Validators\OrderValidator;
 
 /**
@@ -36,10 +37,14 @@ class OrdersController extends Controller
      * @param OrderRepository $repository
      * @param OrderValidator $validator
      */
-    public function __construct(OrderRepository $repository, OrderValidator $validator)
+
+    protected $detailRepository;
+
+    public function __construct(OrderRepository $repository, OrderValidator $validator, OrderDetailRepository $orderDetailRepos)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->detailRepository = $orderDetailRepos;
     }
 
     /**
@@ -92,7 +97,22 @@ class OrdersController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $order = $this->repository->create($request->all());
+            $order = $this->repository->create([
+                'user_id' => $request['user_id'],
+                'restaurant_id' => $request['restaurant_id'],
+                'comments' => $request['comments'],
+                'total'=> $request['total'],
+            ]);
+
+            //$orderDetailRepos = new OrderDetailRepository();
+            for($i=0; $i < sizeof($request['menu_restaurant_id']); $i++){
+                $this->detailRepository->create([
+                    'order_id' => $order->id,
+                    'menu_restaurant_id' => $request['menu_restaurant_id'][$i],
+                    'amount' => $request['amount'][$i],
+                    'sub_total' => $request['sub_total'][$i],
+                ]);
+            }
 
             $response = [
                 'message' => 'Order created.',

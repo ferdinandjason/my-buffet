@@ -78,10 +78,20 @@ class MenuRestaurantsController extends Controller
     public function store(MenuRestaurantCreateRequest $request)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $menuRestaurant = $this->repository->create($request->all());
+            $uploadedFile = $request->file('foto');
+            $path = $uploadedFile->store('foto/'.$request['restaurant_id'],'public');
+
+            $menuRestaurant = $this->repository->create([
+                'restaurant_id' => $request['restaurant_id'],
+                'nama_makanan' => $request['nama_makanan'],
+                'deskripsi' => $request['deskripsi'],
+                'kategori' => strtolower($request['kategori']),
+                'harga' => $request['harga'],
+                'foto' => $path,
+                'stok' => $request['stok'],
+            ]);
 
             $response = [
                 'message' => 'MenuRestaurant created.',
