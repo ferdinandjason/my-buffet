@@ -28,7 +28,7 @@
                 <span class="card-img">
                     <img src="https://fillmurray.com/g/640/320" class="img-responsive">
                     <div class="card-caption">
-                        <span class="h2">{{$resto->nama}}</span>
+                        <span class="h2"><a href="{{route('user.resto',$resto->id)}}">{{$resto->nama}}</a></span>
                     </div>
                 </span>
             </div>

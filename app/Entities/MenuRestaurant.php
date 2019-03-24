@@ -41,4 +41,9 @@ class MenuRestaurant extends Model implements Transformable
         MenuRestaurant::ATTRIBUTE_STOK
     ];
 
+    public function restaurant()
+    {
+        return $this->belongsTo('App\Entities\Restaurant');
+    }
+
 }

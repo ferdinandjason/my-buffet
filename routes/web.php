@@ -78,6 +78,7 @@ Route::prefix('user')->group(function (){
         })->name('home');
 
         Route::get('order', 'RestaurantsController@indexUser')->name('order');
+        Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
         Route::post('order', 'OrdersController@store')->name('order.final');
     });
 });
