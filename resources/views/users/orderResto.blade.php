@@ -74,6 +74,8 @@
         }
 
 
+
+
     </style>
 @stop
 
@@ -116,21 +118,51 @@
 
         <div class="preview-price">
             <h4><b>Total: </b>RP </h4>
-            <h4 id="preview-total-price">0</h4>
-            <button class="btn btn-sm"> 
+            <h4 class="preview-total-price">0</h4>
+            <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#modal-cart"> 
             <i class="fa fa-fw fa-shopping-cart"> </i>View Cart</button>
         </div>
 
-        <form action={{route('user.order.final')}} method="POST" id="formOrder">
-            {{ csrf_field() }}
-            <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="user_id"/>
-            <input type="hidden" name="restaurant_id" value="0" id="restaurant_id"/>
-            <label for="comments">Note</label>
-            <input type="text" name="comments" id="comments"/>
-            <div id="dynamicField"></div>
-            <input name="total" id="total" value="0"/>
-            <button type="submit"> Beli </button>
-        </form>
+        <div class="modal fade" id="modal-cart" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">My Cart</h4>
+                    </div>
+                    
+                    <form action={{route('user.order.final')}} method="POST" id="formOrder">
+                    {{ csrf_field() }}
+                    
+                        <div class="modal-body">
+                                <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="user_id"/>
+                                <input type="hidden" name="restaurant_id" value="0" id="restaurant_id"/>
+                                
+                                <div id="dynamicField"></div>
+
+                                <table class="table table-condensed" id="dynamicTable">
+                                    <tbody>
+                                    
+                                    </tbody>
+                                </table>
+                                
+                                <label for="comments">Note</label>
+                                <input type="text" name="comments" id="comments"/>
+
+                                <input type="hidden" name="total" id="total" value="0"/>
+                                
+                        </div>
+                        <div class="modal-footer">
+                            <h4><b>Total: </b>RP </h4>
+                            <h4 class="preview-total-price">0</h4>
+                            
+                            <button type="submit" class="btn btn-default bg-olive">Order</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
 @stop
@@ -150,18 +182,29 @@
             $('#hargaMenuId_'+id).val( parseInt($('#menuId_'+id).val()) * harga)
             $('#total').val( parseInt($('#total').val()) + harga )
 
-            $('#preview-total-price').text($('#total').val());
+            $('.preview-total-price').text($('#total').val())
+
+            $('#tabletr_'+id+' > td:nth-child(2)').text($('#menuId_'+id).val())
+            $('#tabletr_'+id+' > td:nth-child(3)').text(parseInt($('#menuId_'+id).val()) * harga)
+
         } else {
             orderMenuId.push(id);
-            $('#dynamicField').append("<br><input type='hidden' name='menu_restaurant_id[]' value='"+id+"'/>"+
-                "<p>"+nama+"</p>"+
-                "<input type='text' name='amount[]' value=1 id='menuId_"+id+"'/>"+
-                "<input type='text' name='sub_total[]' value="+harga+" id='hargaMenuId_"+id+"'/>"+
+            $('#dynamicField').append(
+                "<br><input type='hidden' name='menu_restaurant_id[]' value='"+id+"'/>"+ 
+                "<input type='hidden' name='amount[]' value=1 id='menuId_"+id+"'/>"+
+                "<input type='hidden' name='sub_total[]' value="+harga+" id='hargaMenuId_"+id+"'/>"+
                 "<br>"
             )
+
+            $('#dynamicTable').append(
+                "<tr id='tabletr_" +id + "'><td><p>"+nama+"</p></td>"+
+                "<td>1</td>" + 
+                "<td>" + harga + "</td></tr>"
+            )
+
             $('#total').val( parseInt($('#total').val()) + harga )
 
-            $('#preview-total-price').text($('#total').val());
+            $('.preview-total-price').text($('#total').val());
         }
     }
 </script>

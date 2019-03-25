@@ -45,7 +45,7 @@
             <p> Menu nya adalah ---------------------------------------------- </p>
             @if(is_null($resto->menu))
                 <p> No Menu Avaiable </p>
-            @else
+            @else{{$menu->nama_makanan}}
                 @foreach ($resto->menu as $menu)
                     <img src="{{Storage::url($menu->foto)}}" style="height: 100px;width: 100px;"/>
                     <p>{{$menu->nama_makanan}}</p>
