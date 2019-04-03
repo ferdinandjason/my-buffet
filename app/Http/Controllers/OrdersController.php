@@ -110,13 +110,18 @@ class OrdersController extends Controller
 
     public function paid($id)
     {
-        $this->repository->changeStatusToPaid($id);
+        $this->repository->changeStatusToConfirmed($id);
 
         $response = [
             'message' => 'Order updated.',
         ];
 
         return redirect()->back()->with('message', $response['message']);
+    }
+
+    public function orderTransfered($order)
+    {
+
     }
 
     /**
@@ -139,6 +144,7 @@ class OrdersController extends Controller
                 'restaurant_id' => $request['restaurant_id'],
                 'comments' => $request['comments'],
                 'total'=> $request['total'],
+                'delivery'=> $request['delivery'],
             ]);
 
             //$orderDetailRepos = new OrderDetailRepository();

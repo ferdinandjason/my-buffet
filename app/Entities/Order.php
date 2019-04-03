@@ -25,6 +25,16 @@ class Order extends Model implements Transformable
     const ATTRIBUTE_RESTAURANT_ID = 'restaurant_id';
     const ATTRIBUTE_COMMENTS = 'comments';
     const ATTRIBUTE_TOTAL = 'total';
+    const ATTRIBUTE_STATUS = 'status';
+    const ATTRIBUTE_DELIVERY = 'delivery';
+
+    const ORDER_RAW = 0;
+    const ORDER_CONFIRMED = 1;
+    const ORDER_PLACED = 2;
+    const ORDER_DONE = 3;
+
+    const FOOD_PICKUP = 0;
+    const FOOD_DELIVERY = 1;
 
     protected $fillable = [
         Order::ATTRIBUTE_ID,
@@ -32,6 +42,8 @@ class Order extends Model implements Transformable
         Order::ATTRIBUTE_RESTAURANT_ID,
         Order::ATTRIBUTE_COMMENTS,
         Order::ATTRIBUTE_TOTAL,
+        Order::ATTRIBUTE_STATUS,
+        Order::ATTRIBUTE_DELIVERY,
     ];
 
     public function details(){
