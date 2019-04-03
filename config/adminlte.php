@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Express-Buffet',
+    'title' => 'MyBuffet',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Buffet</b> Express',
+    'logo' => '<b>My</b> Buffet',
 
-    'logo_mini' => '<b>B</b>Ex',
+    'logo_mini' => '<b>M</b>B',
 
     /*
     |--------------------------------------------------------------------------

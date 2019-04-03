@@ -171,6 +171,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div id="add-alamat">
+                                </div>
                                 <input type="hidden" name="total" id="total" value="0"/>
                                 
                         </div>
@@ -193,7 +195,11 @@
 <script>
     $("#takefood a").click(function(){
         $(this).parents(".btn-group").find('#hehe').text($(this).text());
-        $(this).parents(".btn-group").find('#delivery').val($(this).attr('value'));
+        $('#delivery').val(parseInt($(this).attr('value')));
+        $("#add-alamat").empty();
+        if($('#delivery').val() == 1){
+            $('#add-alamat').html("<label for='alamat'>Alamat Pengantaran : </label><input type='text' name='alamat' id='alamat'/>")
+        }
     });
 
     $('#total').val(0)

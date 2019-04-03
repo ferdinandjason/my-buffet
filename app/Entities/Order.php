@@ -54,4 +54,7 @@ class Order extends Model implements Transformable
         return $this->belongsTo('App\Entities\User');
     }
 
+    public function restaurant(){
+        return $this->belongsTo('App\Entities\Restaurant');
+    }
 }

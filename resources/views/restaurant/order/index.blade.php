@@ -85,6 +85,11 @@
                                 <div class="col-md-8">
                                     <p><b>Note: </b>{{$order->comments}}</p>
                                 </div>
+                                @if($order->delivery == 1)
+                                <div class="col-md-8">
+                                    <p><b>Alamat: </b>{{$order->alamat}}</p>
+                                </div>
+                                @endif
                                 <div class="col-md-4">
                                     <p><b>Total: </b>{{$order->total}}</p>
                                 </div>
