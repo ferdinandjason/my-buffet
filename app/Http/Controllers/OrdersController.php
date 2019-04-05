@@ -64,7 +64,7 @@ class OrdersController extends Controller
             ]);
         }
 
-        return view('orders.index', compact('orders'));
+        return view('admin.order', compact('orders'));
     }
 
     public function indexRestaurant()
@@ -108,9 +108,20 @@ class OrdersController extends Controller
         return redirect()->back()->with('message', $response['message']);
     }
 
-    public function paid($id)
+    public function confirmed($id)
     {
-        $this->repository->changeStatusToPaid($id);
+        $this->repository->changeStatusToConfirmed($id);
+
+        $response = [
+            'message' => 'Order updated.',
+        ];
+
+        return redirect()->back()->with('message', $response['message']);
+    }
+
+    public function placed($id)
+    {
+        $this->repository->changeStatusToPlaced($id);
 
         $response = [
             'message' => 'Order updated.',
@@ -139,6 +150,7 @@ class OrdersController extends Controller
                 'restaurant_id' => $request['restaurant_id'],
                 'comments' => $request['comments'],
                 'total'=> $request['total'],
+                'delivery'=> $request['delivery'],
             ]);
 
             //$orderDetailRepos = new OrderDetailRepository();

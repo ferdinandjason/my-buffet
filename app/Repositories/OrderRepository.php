@@ -15,5 +15,6 @@ interface OrderRepository extends RepositoryInterface
     public function findOrderWithRestaurantId($id);
     public function findOrderHistory($id);
     public function changeStatusToDone($id);
-    public function changeStatusToPaid($id);
+    public function changeStatusToPlaced($id);
+    public function changeStatusToConfirmed($id);
 }

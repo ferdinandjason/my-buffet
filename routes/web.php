@@ -85,11 +85,16 @@ Route::prefix('user')->group(function (){
 
 Route::prefix('admin')->group(function (){
     Route::name('admin.')->group(function (){
-        Route::get('home', function() {
-            return view('admin.home');
-        })->name('home');
-        Route::get('restaurant', 'RestaurantsController@index')->name('restaurant.list');
-        Route::get('user', 'UsersController@index')->name('user.list');
+        Route::middleware(['admin.menu'])->group(function() {
+            Route::get('home', function() {
+                return view('admin.home');
+            })->name('home');
+            Route::get('order', 'OrdersController@index')->name('order.list');
+            Route::get('order/{id}/confirmed', 'OrdersController@confirmed')->name('order.confirmed');
+            Route::get('order/{id}/placed', 'OrdersController@placed')->name('order.placed');
+            Route::get('restaurant', 'RestaurantsController@index')->name('restaurant.list');
+            Route::get('user', 'UsersController@index')->name('user.list');
+        });
     });
 });
 

@@ -133,22 +133,46 @@
                     
                     <form action={{route('user.order.final')}} method="POST" id="formOrder">
                     {{ csrf_field() }}
-                    
                         <div class="modal-body">
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="user_id"/>
-                                <input type="hidden" name="restaurant_id" value="0" id="restaurant_id"/>
+                                <input type="hidden" name="restaurant_id" value="{{$id}}" id="restaurant_id"/>
                                 
-                                <div id="dynamicField"></div>
+                                <div id="dynamicField"  style="display:none;"></div>
 
                                 <table class="table table-condensed" id="dynamicTable">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Nama</strong></td>
+                                            <td><strong>Qty</strong></td>
+                                            <td><strong>Harga</strong></td>
+                                        </tr>
+                                    </thead>                                        
                                     <tbody>
-                                    
+                                        
                                     </tbody>
-                                </table>
-                                
-                                <label for="comments">Note</label>
-                                <input type="text" name="comments" id="comments"/>
-
+                                </table>                                
+                                <input type="hidden" id="delivery" name="delivery" value="0"/>
+                                <div style="display: flex;justify-content: space-between;">
+                                    <div>
+                                        <label for="comments">Notes : </label>
+                                        <input type="text" name="comments" id="comments"/>
+                                    </div>
+                                    <div>
+                                        <label for="comments">Take Food : </label>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hehe">
+                                                Pick Up
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" id="takefood">
+                                                <li><a href="#" value="0">Pick Up</a></li>
+                                                <li><a href="#" value="1">Delivery</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="add-alamat">
+                                </div>
                                 <input type="hidden" name="total" id="total" value="0"/>
                                 
                         </div>
@@ -169,6 +193,15 @@
 
 @section('adminlte_js')
 <script>
+    $("#takefood a").click(function(){
+        $(this).parents(".btn-group").find('#hehe').text($(this).text());
+        $('#delivery').val(parseInt($(this).attr('value')));
+        $("#add-alamat").empty();
+        if($('#delivery').val() == 1){
+            $('#add-alamat').html("<label for='alamat'>Alamat Pengantaran : </label><input type='text' name='alamat' id='alamat'/>")
+        }
+    });
+
     $('#total').val(0)
     let orderMenuId = []
 
