@@ -37,7 +37,7 @@
         @else
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <b>Express</b>Buffet
+                    <b>My</b>Buffet
                 </a>
             </div>
         @endif
