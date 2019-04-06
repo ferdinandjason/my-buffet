@@ -97,6 +97,26 @@ class OrdersController extends Controller
         return view('restaurant.order.history', compact('orders'));
     }
 
+    public function bestResto()
+    {
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $bestResto = $this->repository->getBestResto();
+        $orders = $this->repository->findUserOrderHistory(Auth('user')->user()->id);
+        $data = array(
+            "bestResto" => $bestResto,
+            "orders" => $bestResto,
+        );
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $orderDetails,
+            ]);
+        }
+
+        return view('users.home', compact('data'));
+    }
+
     public function done($id)
     {
         $this->repository->changeStatusToDone($id);

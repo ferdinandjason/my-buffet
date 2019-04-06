@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OrderRepository;
 use App\Entities\Order;
 use App\Validators\OrderValidator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class OrderRepositoryEloquent.
@@ -47,12 +48,17 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
 
     public function findOrderWithRestaurantId($id)
     {
-        return $this->model->with(['details', 'user'])->where('restaurant_id',$id)->where('status',2)->get();
+        return $this->model->with(['details', 'restaurant'])->where('restaurant_id',$id)->where('status',2)->get();
     }
 
     public function findOrderHistory($id)
     {
-        return $this->model->with(['details', 'user'])->where('restaurant_id',$id)->where('status',3)->orWhere('status',2)->get();
+        return $this->model->with(['details', 'restaurant'])->where('restaurant_id',$id)->where('status',3)->orWhere('status',2)->get();
+    }
+
+    public function findUserOrderHistory($id)
+    {
+        return $this->model->with(['details', 'user'])->where('user_id',$id)->get();
     }
 
     public function changeStatusToDone($id)
@@ -68,6 +74,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function changeStatusToConfirmed($id)
     {
         $this->model->where('id',$id)->update(['status' => 1]);
+    }
+
+    public function getBestResto()
+    {
+        return $this->model->with(['restaurant'])->select('restaurant_id',DB::raw('count(id) as total'))->groupBy('restaurant_id')->orderBy('total','desc')->get();
     }
     
 }

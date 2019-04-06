@@ -73,10 +73,9 @@ Route::prefix('restaurant')->group(function (){
 
 Route::prefix('user')->group(function (){
     Route::name('user.')->group(function (){
-        Route::get('home', function() {
-            return view('users.home');
-        })->name('home');
+        Route::get('home', 'OrdersController@bestResto')->name('home');
 
+        Route::get('order-history', 'OrdersController@historyUser')->name('order.history');
         Route::get('order', 'RestaurantsController@indexUser')->name('order');
         Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
         Route::post('order', 'OrdersController@store')->name('order.final');

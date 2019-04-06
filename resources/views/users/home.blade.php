@@ -99,4 +99,16 @@
 <h1>User Dashboard<h1>
 <a href={{route('user.order')}}> Order </a>
 
+@foreach($data['bestResto'] as $resto)
+        <p>{{$resto->restaurant->id}}<p>
+@endforeach
+
+@foreach ($data['orders'] as $order)
+    <p>{{$order->id}}</p>
+    <p>{{$order->created_at}}</p>
+    <p>{{$order->total}}</p>
+    <p>{{$order->status}}</p>
+    <!-- $order->details buat menu menunya apa aja -->
+@endforeach
+
 @endsection
