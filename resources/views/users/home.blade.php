@@ -98,7 +98,6 @@
 
 <h1>User Dashboard<h1>
 <a href={{route('user.order')}}> Order </a>
-
 @foreach($data['bestResto'] as $resto)
         <p>{{$resto->restaurant->id}}<p>
 @endforeach

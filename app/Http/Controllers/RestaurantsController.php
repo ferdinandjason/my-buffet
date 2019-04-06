@@ -98,7 +98,7 @@ class RestaurantsController extends Controller
         if(Auth::guard('restaurant')->attempt($credentials, $remember)){
             return redirect()->route('restaurant.home');
         } else {
-            return redirect()->back()->withInput($request->only('username', 'remember'));
+            return redirect()->back()->withInput($request->only('username', 'remember'))->withErrors(['password'=>'Username atau Password yang dimasukan salah','username'=>'.']);
         }
     }
 

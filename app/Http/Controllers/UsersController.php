@@ -87,8 +87,7 @@ class UsersController extends Controller
                 return redirect()->route('admin.home');
             }
         } else {
-            echo "SALAH";
-            return redirect()->back()->withInput($request->only('username', 'remember'));
+            return redirect()->back()->withInput($request->only('username', 'remember'))->withErrors(['password'=>'Username atau Password yang dimasukan salah','username'=>'.']);
         }
     }
 
