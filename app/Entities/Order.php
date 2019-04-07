@@ -27,6 +27,7 @@ class Order extends Model implements Transformable
     const ATTRIBUTE_TOTAL = 'total';
     const ATTRIBUTE_STATUS = 'status';
     const ATTRIBUTE_DELIVERY = 'delivery';
+    const ATTRIBUTE_ALAMAT = 'alamat';
 
     const ORDER_RAW = 0;
     const ORDER_CONFIRMED = 1;
@@ -44,6 +45,7 @@ class Order extends Model implements Transformable
         Order::ATTRIBUTE_TOTAL,
         Order::ATTRIBUTE_STATUS,
         Order::ATTRIBUTE_DELIVERY,
+        Order::ATTRIBUTE_ALAMAT,
     ];
 
     public function details(){

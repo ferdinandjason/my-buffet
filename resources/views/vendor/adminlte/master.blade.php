@@ -28,6 +28,13 @@
         <link rel="stylesheet" href="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css">
     @endif
 
+    <style>
+        @font-face {
+            font-family: "Helvetica Neue";
+            src: url("/font/HelveticaNeueLTStd Lt.otf");
+        }
+    </style>
+
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>

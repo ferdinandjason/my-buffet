@@ -79,6 +79,9 @@ Route::prefix('user')->group(function (){
         Route::get('order', 'RestaurantsController@indexUser')->name('order');
         Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
         Route::post('order', 'OrdersController@store')->name('order.final');
+        Route::get('order/{id}/bayar', 'OrdersController@bayar')->name('order.bayar');
+        Route::post('order/{id}/bayar', 'OrdersController@update')->name('order.bayarr');
+        Route::get('order/{id}/placed', 'OrdersController@placedd')->name('order.placed');
     });
 });
 

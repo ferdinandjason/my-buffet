@@ -22,7 +22,6 @@ class CreateOrdersTable extends Migration
 			$table->mediumText('comments')->nullable();
 			$table->bigInteger('total');
 			$table->integer('status')->default(0);
-			$table->integer('delivery')->default(0);
             $table->timestamps();
 		});
 	}
