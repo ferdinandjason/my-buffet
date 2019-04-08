@@ -4,7 +4,7 @@
 
         @if( strpos(url()->current(), 'login') == false && strpos(url()->current(), 'register') == false )
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 23px !important;">
                     <b>My</b>Buffet
                 </a>
 

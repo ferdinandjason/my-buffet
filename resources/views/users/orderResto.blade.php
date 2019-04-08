@@ -166,7 +166,7 @@
         <div class="modal fade" id="modal-cart" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-olive">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Keranjang Pemesanan</h4>
                     </div>

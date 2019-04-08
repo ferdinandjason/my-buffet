@@ -16,7 +16,7 @@
         }
 
         .container {
-            margin-top: 80px;
+            margin-top: 10px;
         }
 
         button a{
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12"> 
-                                <div class="panel-footer" style="display: none" id="1">
+                                <div class="panel-footer" style="display: block" id="1">
                                     <p>1. Login ke akun BNI Mobile</p>
                                     <p>2. Pilih Transfer > Virtual Account Billing</p>
                                     <p>3. Masukkan angka 42398 diikuti nomor HP-mu (mis.: 42398xxx xxxxx xxxx)</p>
