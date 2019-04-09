@@ -56,7 +56,7 @@ class OrdersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orders = $this->repository->all();
+        $orders = $this->repository->allReversed();
 
         if (request()->wantsJson()) {
 
@@ -149,6 +149,12 @@ class OrdersController extends Controller
         ];
 
         return redirect()->back()->with('message', $response['message']);
+    }
+
+    public function getLastOrder()
+    {
+        $order = $this->repository->getLastOrder();
+        return view('recentTransfers.trf',compact('order'));
     }
 
     /**

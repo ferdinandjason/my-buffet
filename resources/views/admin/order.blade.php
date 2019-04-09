@@ -5,6 +5,11 @@
     html, body {
         padding-top: 0px !important;
     }
+
+    .products-list .product-info {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
 </style>
 @stop
 
@@ -16,6 +21,7 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
         <li class="active">Dashboard</li>
     </ol>
+    <meta http-equiv="refresh" content="5" />
 @stop
 
 @section('content')
@@ -96,23 +102,12 @@
                 </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
-                <ul class="products-list product-list-in-box">
-                    <li class="item">
-                        <div class="product-info">
-                            <a href="javascript:void(0)" class="product-title">Samsung TV
-                            <span class="label label-warning pull-right">$1800</span></a>
-                            <span class="product-description">
-                                Samsung 32" 1080p 60Hz LED Smart HDTV.
-                            </span>
-                        </div>
-                    </li>
-                    <!-- /.item -->
-                </ul>
+                <div class="box-body" id="asd">
+                
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                <a href="javascript:void(0)" class="uppercase">View All Products</a>
+                <!-- <a href="javascript:void(0)" class="uppercase">View All Products</a> -->
                 </div>
                 <!-- /.box-footer -->
             </div>
@@ -124,4 +119,40 @@
     
 
 
+@stop
+
+@section('js')
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        $('#menu-restoran').DataTable();
+        $.ajax({
+            url: "{{route('api.transfered-order')}}", 
+            success: function(obj){
+                //let obj = JSON.parse(result);
+                console.log(obj);
+                obj = obj.data;
+                string =  "";
+                for (let index = obj.length-1; index >= 0; --index){
+                    let o = obj[index];
+                    console.log(o);
+                    string += 
+                    "<ul class='products-list product-list-in-box'>"+
+                        "<li class='item'>"+
+                            "<div class='product-info'>"+
+                                "<a class='product-title'> Order ID "+o.order_id+
+                                "<span class='label label-warning pull-right'>"+o.total+"</span></a>"+
+                                "<span class='product-description'>"+
+                                    "Lunas !"+
+                                "</span>"+
+                            "</div>"+
+                        "</li>"+
+                    "</ul>"
+                }
+                $('#asd').html(string);
+            }
+        });
+    } );
+    </script>
 @stop

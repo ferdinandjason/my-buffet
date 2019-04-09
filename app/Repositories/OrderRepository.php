@@ -19,4 +19,6 @@ interface OrderRepository extends RepositoryInterface
     public function changeStatusToPlaced($id);
     public function changeStatusToConfirmed($id);
     public function getBestResto();
+    public function getLastOrder();
+    public function allReversed();
 }

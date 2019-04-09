@@ -106,3 +106,8 @@ Route::prefix('admin')->group(function (){
     });
 });
 
+Route::name('api.')->group(function (){
+    Route::get('transfer', 'OrdersController@getLastOrder')->name('transfer');
+    Route::post('transfer/{order}', 'RecentTransfersController@store')->name('transfered');
+    Route::get('transfered-order', 'RecentTransfersController@index')->name('transfered-order');
+});
