@@ -166,7 +166,7 @@ class RestaurantsController extends Controller
             ]);
         }
 
-        return view('restaurant.show', compact('restaurant'));
+        return view('restaurant.profile', compact('restaurant'));
     }
 
     /**
@@ -180,7 +180,7 @@ class RestaurantsController extends Controller
     {
         $restaurant = $this->repository->find($id);
 
-        return view('restaurants.edit', compact('restaurant'));
+        return view('restaurant.edit', compact('restaurant'));
     }
 
     /**

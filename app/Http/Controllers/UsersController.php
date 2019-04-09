@@ -163,7 +163,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('users.profile', compact('user'));
     }
 
     /**
@@ -173,10 +173,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $user = $this->repository->find($id);
-
+        $user = $this->repository->find(Auth::user()->id);
         return view('users.edit', compact('user'));
     }
 
@@ -190,13 +189,13 @@ class UsersController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $id);
+            $user = $this->repository->update($request->all(), Auth::user()->id);
 
             $response = [
                 'message' => 'User updated.',

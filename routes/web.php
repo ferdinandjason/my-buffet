@@ -51,6 +51,9 @@ Route::prefix('restaurant')->group(function (){
             Route::get('home', function() {
                 return view('restaurant.home');
             })->name('home');
+            Route::get('profile', 'RestaurantsController@show')->name('profile');
+            Route::get('profile/edit', 'RestaurantsController@edit')->name('profile.edit');
+            Route::post('profile', 'RestaurantsController@update')->name('profile.update');
 
             Route::get('order', 'OrdersController@indexRestaurant')->name('order.restaurant');
             Route::get('order-history', 'OrdersController@history')->name('order.history');
@@ -74,6 +77,9 @@ Route::prefix('restaurant')->group(function (){
 Route::prefix('user')->group(function (){
     Route::name('user.')->group(function (){
         Route::get('home', 'OrdersController@bestResto')->name('home');
+        Route::get('profile', 'UsersController@show')->name('profile');
+        Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
+        Route::post('profile','UsersController@update')->name('profile.update');
 
         Route::get('order-history', 'OrdersController@historyUser')->name('order.history');
         Route::get('order', 'RestaurantsController@indexUser')->name('order');
