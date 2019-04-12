@@ -101,6 +101,10 @@
             margin-bottom: 0px;
         }
 
+        .clear {
+            background-color: white;
+        }
+
     </style>
 @stop
 

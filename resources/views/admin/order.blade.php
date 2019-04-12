@@ -15,11 +15,11 @@
 
 @section('content_header')
     <h1>
-        Admin Dashboard
+        Order Status
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Order</li>
     </ol>
     <meta http-equiv="refresh" content="5" />
 @stop
@@ -28,7 +28,7 @@
     <!-- Info Box -->
     <div class="row">
         <div class="col-md-8">
-            <div class="box box-info">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Latest Orders</h3>
                     <div class="box-tools pull-right">
@@ -84,10 +84,10 @@
                     <!-- /.table-responsive -->
                 </div>
             <!-- /.box-body -->
-                <div class="box-footer clearfix">
+                <!-- <div class="box-footer clearfix">
                     <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
                     <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
-                </div>
+                </div> -->
             <!-- /.box-footer -->
             </div>
         </div>
@@ -130,8 +130,6 @@
         $.ajax({
             url: "{{route('api.transfered-order')}}", 
             success: function(obj){
-                //let obj = JSON.parse(result);
-                console.log(obj);
                 obj = obj.data;
                 string =  "";
                 for (let index = obj.length-1; index >= 0; --index){

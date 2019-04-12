@@ -28,8 +28,8 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-            <span class="info-box-text">CPU Traffic</span>
-            <span class="info-box-number">90<small>%</small></span>
+            <span class="info-box-text">Menu</span>
+            <span class="info-box-number">{{$data['menu']}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -42,7 +42,7 @@
 
             <div class="info-box-content">
             <span class="info-box-text">Order</span>
-            <span class="info-box-number">41,410</span>
+            <span class="info-box-number">{{$data['order']}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -59,7 +59,7 @@
 
             <div class="info-box-content">
             <span class="info-box-text">Hotel</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-number">{{$data['restaurant']}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -72,7 +72,7 @@
 
             <div class="info-box-content">
             <span class="info-box-text">Member</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-number">{{$data['user']}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>

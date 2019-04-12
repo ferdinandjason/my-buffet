@@ -29,7 +29,16 @@
         }
 
         .panel-footer p{
-            text-align: left;
+            text-align: left;   
+        }
+
+        .panel-footer {
+            margin-right: 17%;
+            margin-left: 17%;
+        }
+
+        .clear {
+            background-color: white;
         }
 
     </style>
@@ -48,15 +57,15 @@
                     <div class="panel-body">
                             <div class="col-md-12 text-center"> 
                                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group"> 
-                                    <button type="button" onclick="tampil(1)" class="btn"><img class="bank" src="http://www.bni.co.id/Portals/1/bni-logo-id.svg?ver=2017-04-27-170938-000"></button> 
-                                    <button type="button" onclick="tampil(2)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/BCA_logo.svg/1280px-BCA_logo.svg.png"></button> 
-                                    <button type="button" onclick="tampil(3)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/f/fa/Bank_Mandiri_logo.svg/1280px-Bank_Mandiri_logo.svg.png"></button> 
-                                    <button type="button" onclick="tampil(4)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/1280px-BANK_BRI_logo.svg.png"></button> 
-                                    <button type="button" onclick="tampil(5)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/4/48/PermataBank_logo.svg/1280px-PermataBank_logo.svg.png"></button> 
+                                    <button type="button" onclick="tampil(1,this)" class="btn clear"><img class="bank" src="http://www.bni.co.id/Portals/1/bni-logo-id.svg?ver=2017-04-27-170938-000"></button> 
+                                    <button type="button" onclick="tampil(2,this)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/e/e0/BCA_logo.svg/1280px-BCA_logo.svg.png"></button> 
+                                    <button type="button" onclick="tampil(3,this)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/f/fa/Bank_Mandiri_logo.svg/1280px-Bank_Mandiri_logo.svg.png"></button> 
+                                    <button type="button" onclick="tampil(4,this)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/1280px-BANK_BRI_logo.svg.png"></button> 
+                                    <button type="button" onclick="tampil(5,this)" class="btn"><img class="bank" src="https://upload.wikimedia.org/wikipedia/id/thumb/4/48/PermataBank_logo.svg/1280px-PermataBank_logo.svg.png"></button> 
     
                                 </div>
                             </div>
-                            <div class="col-md-12"> 
+                            <div class="col-md-12 text-center"> 
                                 <div class="panel-footer" style="display: block" id="1">
                                     <p>1. Login ke akun BNI Mobile</p>
                                     <p>2. Pilih Transfer > Virtual Account Billing</p>
@@ -112,13 +121,15 @@
 
 @section('adminlte_js')
 <script>
-function tampil(id){
+function tampil(id, e){
+        $('button.btn').removeClass('clear');
         $('#1').css('display','none');
         $('#2').css('display','none');
         $('#3').css('display','none');
         $('#4').css('display','none');
         $('#5').css('display','none');
         $('#'+id).css('display','block');
+        $(e).addClass('clear');
     }
 </script>
 @stop
