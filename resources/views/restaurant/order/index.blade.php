@@ -47,7 +47,7 @@
 @stop
 
 @section('content')
-        <div class="box box-primary order-main-box">
+        <div class="box box-success order-main-box">
             <div class="box-body">
             
             <div class="row">
@@ -73,7 +73,7 @@
                                 <tr>
                                     <td>{{$item->menuRestaurant->nama_makanan}}</td>
                                     <td>{{$item->amount}}</td>
-                                    <td>{{$item->sub_total}}</td>
+                                    <td class="harga">{{$item->sub_total}}</td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -90,15 +90,15 @@
                                     <p><b>Alamat: </b>{{$order->alamat}}</p>
                                 </div>
                                 @endif
-                                <div class="col-md-4">
-                                    <p><b>Total: </b>{{$order->total}}</p>
+                                <div class="col-md-4" style="display: flex;justify-content: space-between;">
+                                    <b>Total: </b><p class="harga">{{$order->total}}</p>
                                 </div>
                             </div>
                             
                             <div class="done-order">
                                 <form action={{route('restaurant.order.done', ['id' => $order->id])}} method="POST">
                                     {{ csrf_field() }}
-                                    <button type="submit" class="btn btn-primary btn-xs btn-block">Done</button>
+                                    <button type="submit" class="btn btn-success btn-xs btn-block">Done</button>
                                 </form>
                             </div>
                         </div>
@@ -117,7 +117,10 @@
     
     <script>
     $(document).ready(function() {
-        $('#menu-restoran').DataTable();
+        let a = $('.harga');
+        for(let i = 0; i < a.length; i++){
+            a.html('Rp '+numeral(a.html()).format('0,0'))
+        }
     } );
     </script>
 @stop

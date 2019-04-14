@@ -105,6 +105,11 @@
             background-color: white;
         }
 
+        .card img {
+            height: 350px;
+            width: 350px;
+        }
+
     </style>
 @stop
 
@@ -122,7 +127,7 @@
                             <p>{{$menu->deskripsi}}</p>
 
                             <div class="inline" style="display:  flex;justify-content: space-between;">
-                                <h5><b id="harga_{{$menu->id}}" data-harga="{{$menu->harga}}">Rp {{$menu->harga}}</b></h5>
+                                <b><p id="harga_{{$menu->id}}" data-harga="{{$menu->harga}}">{{$menu->harga}}</p></b>
                                 <button class="btn btn-sm bg-olive" id="tambah_{{$menu->id}}" onclick="pilihMenu({{$menu->id}}, '{{$menu->nama_makanan}}', {{$menu->harga}})">+ Add</button>
                                 <div id="tambah_kurang_{{$menu->id}}" style="display: none;">
                                     <div class="input-group" style="width: 150px;">
@@ -161,8 +166,8 @@
         @endforeach
 
         <div class="preview-price">
-            <h4><b>Total: </b>RP </h4>
-            <h4 class="preview-total-price">0</h4>
+            <h4><b>Total: </b> </h4>
+            <h4 class="preview-total-price harga">0</h4>
             <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#modal-cart"> 
             <i class="fa fa-fw fa-shopping-cart"> </i>View Cart</button>
         </div>
