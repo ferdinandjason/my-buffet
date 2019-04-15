@@ -6,6 +6,11 @@
 
 @section('adminlte_css')
     <style>
+        html, body{
+            padding-top: 25px;
+            background-color: #F3EFF5;
+        }
+
         .carousel-inner>.item>img{
             width: 100%;
         }
@@ -55,6 +60,47 @@
             }
         }
 
+        .best-restaurants>.container, .recent-restaurants>.container{
+            padding-top: 5vh;
+            padding-bottom: 10vh;
+        }
+
+        .recent-restaurants{
+            background-color: #FFFFFF;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #eee; 
+            border-radius: 6px; 
+        }
+
+        .card .card-img img { 
+            border-radius: 6px 6px 0 0; 
+        }
+
+        .card .card-img { 
+            position: relative; 
+            padding: 0; 
+            display: table; 
+        }
+
+        .card .card-body {
+            display: table; 
+            width: 100%; 
+            padding: 12px;
+        }
+
+        .card .card-body h5, .card .card-body h4 {
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .card .card-body p {
+            margin-top: 6px;
+            margin-bottom: 12px;
+        }
+
     </style>
 @endsection
 
@@ -96,11 +142,50 @@
     </div>
 </div>
 
-<h1>User Dashboard<h1>
-<a href={{route('user.order')}}> Order </a>
-@foreach($data['bestResto'] as $resto)
-        <p>{{$resto->restaurant->id}}<p>
-@endforeach
+<div class="best-restaurants">
+    <div class="container">
+    <h1>Popular Restaurants</h1>
+
+        @foreach($data['bestResto'] as $resto)
+        <div class="col-sm-4">
+            <div class="card">
+                <span class="card-img">
+                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
+                    <div class="card-body">
+                        <h5><b>{{$resto->restaurant->nama}}</b></h5>
+                        <p>{{$resto->restaurant->alamat}}</p>
+                    </div>
+                </span>
+            </div>
+        </div>
+        @endforeach
+
+    </div>
+</div>
+
+
+<div class="recent-restaurants">
+    <div class="container">
+        <h1>Recent Orders</h1>
+
+        @foreach($data['bestResto'] as $resto)
+        <div class="col-sm-4">
+            <div class="card">
+                <span class="card-img">
+                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
+                    <div class="card-body">
+                        <h5><b>{{$resto->restaurant->nama}}</b></h5>
+                        <p>{{$resto->restaurant->alamat}}</p>
+                    </div>
+                </span>
+            </div>
+        </div>
+        @endforeach
+
+    </div>
+</div>
+
+
 
 @foreach ($data['orders'] as $order)
     <p>{{$order->id}}</p>
