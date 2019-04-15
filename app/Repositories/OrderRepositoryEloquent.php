@@ -80,5 +80,15 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     {
         return $this->model->with(['restaurant'])->select('restaurant_id',DB::raw('count(id) as total'))->groupBy('restaurant_id')->orderBy('total','desc')->get();
     }
+
+    public function getLastOrder()
+    {
+        return $this->model->orderBy('created_at', 'desc')->first();
+    }
+
+    public function allReversed()
+    {
+        return $this->model->orderBy('created_at', 'desc')->get();
+    }
     
 }

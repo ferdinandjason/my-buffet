@@ -3,46 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\RestaurantCreateRequest;
-use App\Http\Requests\RestaurantUpdateRequest;
-use App\Repositories\RestaurantRepository;
-use App\Validators\RestaurantValidator;
-Use App\Entities\Restaurant;
+use App\Http\Requests\RecentTransferCreateRequest;
+use App\Http\Requests\RecentTransferUpdateRequest;
+use App\Repositories\RecentTransferRepository;
+use App\Validators\RecentTransferValidator;
 
 /**
- * Class RestaurantsController.
+ * Class RecentTransfersController.
  *
  * @package namespace App\Http\Controllers;
  */
-class RestaurantsController extends Controller
+class RecentTransfersController extends Controller
 {
     /**
-     * @var RestaurantRepository
+     * @var RecentTransferRepository
      */
     protected $repository;
 
     /**
-     * @var RestaurantValidator
+     * @var RecentTransferValidator
      */
     protected $validator;
 
     /**
-     * RestaurantsController constructor.
+     * RecentTransfersController constructor.
      *
-     * @param RestaurantRepository $repository
-     * @param RestaurantValidator $validator
+     * @param RecentTransferRepository $repository
+     * @param RecentTransferValidator $validator
      */
-    public function __construct(RestaurantRepository $repository, RestaurantValidator $validator)
+    public function __construct(RecentTransferRepository $repository, RecentTransferValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        //$this->middleware('guest:restaurant')->except('store','show','indexUser','formLogin','formRegister');
     }
 
     /**
@@ -53,81 +49,35 @@ class RestaurantsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $restaurants = $this->repository->all();
+        $recentTransfers = $this->repository->all();
+        //dd($recentTransfers->get());
+        //$recentTransfers = array_reverse($recentTransfers);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $restaurants,
-            ]);
-        }
-
-        return view('restaurants.index', compact('restaurants'));
-    }
-
-    public function indexUser()
-    {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $restaurants = $this->repository->restaurantWithMenu();
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $restaurants,
-            ]);
-        }
-
-        return view('users.order', compact('restaurants'));
-    }
-
-    public function formLogin()
-    {
-        return view('auth.login');
-    }
-
-    public function formRegister()
-    {
-        return view('auth.register');
-    }
-
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->only('username', 'password');
-        $remember = $request['remember'];
-
-        if(Auth::guard('restaurant')->attempt($credentials, $remember)){
-            return redirect()->route('restaurant.home');
-        } else {
-            return redirect()->back()->withInput($request->only('username', 'remember'))->withErrors(['password'=>'Username atau Password yang dimasukan salah','username'=>'.']);
-        }
+        return response()->json([
+            'data' => $recentTransfers,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RestaurantCreateRequest $request
+     * @param  RecentTransferCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(RestaurantCreateRequest $request)
+    public function store(RecentTransferCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $restaurant = $this->repository->create([
-                'nama' => $request['nama'],
-                'username' => $request['username'],
-                'password' => Hash::make($request['password']),
-                'alamat' => $request['alamat'],
-                'nomor_telepon' => $request['nomor_telepon'],
-            ]);
+            $recentTransfer = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Restaurant created.',
-                'data'    => $restaurant->toArray(),
+                'message' => 'RecentTransfer created.',
+                'data'    => $recentTransfer->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -157,16 +107,16 @@ class RestaurantsController extends Controller
      */
     public function show($id)
     {
-        $restaurant = $this->repository->find($id);
+        $recentTransfer = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $restaurant,
+                'data' => $recentTransfer,
             ]);
         }
 
-        return view('restaurant.profile', compact('restaurant'));
+        return view('recentTransfers.show', compact('recentTransfer'));
     }
 
     /**
@@ -178,32 +128,32 @@ class RestaurantsController extends Controller
      */
     public function edit($id)
     {
-        $restaurant = $this->repository->find($id);
+        $recentTransfer = $this->repository->find($id);
 
-        return view('restaurant.edit', compact('restaurant'));
+        return view('recentTransfers.edit', compact('recentTransfer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  RestaurantUpdateRequest $request
+     * @param  RecentTransferUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(RestaurantUpdateRequest $request, $id)
+    public function update(RecentTransferUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $restaurant = $this->repository->update($request->all(), $id);
+            $recentTransfer = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Restaurant updated.',
-                'data'    => $restaurant->toArray(),
+                'message' => 'RecentTransfer updated.',
+                'data'    => $recentTransfer->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -241,11 +191,11 @@ class RestaurantsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Restaurant deleted.',
+                'message' => 'RecentTransfer deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Restaurant deleted.');
+        return redirect()->back()->with('message', 'RecentTransfer deleted.');
     }
 }

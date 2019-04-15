@@ -13,6 +13,7 @@ use App\Http\Requests\OrderUpdateRequest;
 use App\Repositories\OrderRepository;
 use App\Repositories\OrderDetailRepository;
 use App\Validators\OrderValidator;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class OrdersController.
@@ -55,7 +56,7 @@ class OrdersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $orders = $this->repository->all();
+        $orders = $this->repository->allReversed();
 
         if (request()->wantsJson()) {
 
@@ -150,6 +151,12 @@ class OrdersController extends Controller
         return redirect()->back()->with('message', $response['message']);
     }
 
+    public function getLastOrder()
+    {
+        $order = $this->repository->getLastOrder();
+        return view('recentTransfers.trf',compact('order'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -193,7 +200,7 @@ class OrdersController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('user.order.bayar', $order['id'])->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -204,6 +211,19 @@ class OrdersController extends Controller
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
+    }
+
+    public function bayar($id)
+    {
+        //$order = Session::get('message')['data'];
+        $order = $this->repository->find($id);
+        return view('users.orderBayar', compact('order'));
+    }
+
+    public function placedd($id)
+    {
+        $order = $this->repository->find($id);
+        return view('users.orderPlaced', compact('order'));
     }
 
     /**
@@ -269,7 +289,7 @@ class OrdersController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('user.order.placed', $order->id);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {

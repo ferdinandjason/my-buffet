@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
     @endif
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
@@ -28,6 +30,13 @@
         <link rel="stylesheet" href="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css">
     @endif
 
+    <style>
+        @font-face {
+            font-family: "Helvetica Neue";
+            src: url("/font/HelveticaNeueLTStd Lt.otf");
+        }
+    </style>
+
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -37,6 +46,12 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <style>
+        /* .bg-olive {
+            background-color: #72B01D !important;
+        } */
+    </style>
 </head>
 <body class="hold-transition @yield('body_class')">
 

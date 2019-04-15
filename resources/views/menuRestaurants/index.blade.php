@@ -21,7 +21,7 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
-        <div class="box box-primary">
+        <div class="box box-success">
             <div class="box-header">
                 <h3 class="box-title">Menu</h3>
             </div>
@@ -48,7 +48,7 @@
                                 <td>{{$menu->deskripsi}}</td>
                                 <td>{{$menu->kategori}}</td>
                                 <td>{{$menu->stok}}</td>
-                                <td>{{$menu->harga}}</td>
+                                <td class="harga">{{$menu->harga}}</td>
                                 <td>
                                     <div style="display:flex">
                                         <button type="button" class="btn btn-info">
@@ -91,6 +91,10 @@
     <script>
     $(document).ready(function() {
         $('#menu-restoran').DataTable();
+        let a = $('.harga');
+        for(let i = 0; i < a.length; i++){
+            a.html('Rp '+numeral(a.html()).format('0,0'))
+        }
     } );
     </script>
 @stop

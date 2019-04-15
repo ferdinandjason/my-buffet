@@ -4,7 +4,7 @@
 
         @if( strpos(url()->current(), 'login') == false && strpos(url()->current(), 'register') == false )
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 23px !important;color: #3d9970 !important;">
                     <b>My</b>Buffet
                 </a>
 
@@ -36,9 +36,9 @@
             @endguest
         @else
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <b>My</b>Buffet
-                </a>
+                    <a class="navbar-brand" href="{{ url('/') }}" style="font-size: 23px !important;color: #3d9970 !important;">
+                        <b>My</b>Buffet
+                    </a>
             </div>
         @endif
 

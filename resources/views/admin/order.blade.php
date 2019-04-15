@@ -5,24 +5,30 @@
     html, body {
         padding-top: 0px !important;
     }
+
+    .products-list .product-info {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
 </style>
 @stop
 
 @section('content_header')
     <h1>
-        Admin Dashboard
+        Order Status
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Order</li>
     </ol>
+    <meta http-equiv="refresh" content="5" />
 @stop
 
 @section('content')
     <!-- Info Box -->
     <div class="row">
         <div class="col-md-8">
-            <div class="box box-info">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Latest Orders</h3>
                     <div class="box-tools pull-right">
@@ -78,10 +84,10 @@
                     <!-- /.table-responsive -->
                 </div>
             <!-- /.box-body -->
-                <div class="box-footer clearfix">
+                <!-- <div class="box-footer clearfix">
                     <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
                     <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
-                </div>
+                </div> -->
             <!-- /.box-footer -->
             </div>
         </div>
@@ -96,23 +102,12 @@
                 </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
-                <ul class="products-list product-list-in-box">
-                    <li class="item">
-                        <div class="product-info">
-                            <a href="javascript:void(0)" class="product-title">Samsung TV
-                            <span class="label label-warning pull-right">$1800</span></a>
-                            <span class="product-description">
-                                Samsung 32" 1080p 60Hz LED Smart HDTV.
-                            </span>
-                        </div>
-                    </li>
-                    <!-- /.item -->
-                </ul>
+                <div class="box-body" id="asd">
+                
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                <a href="javascript:void(0)" class="uppercase">View All Products</a>
+                <!-- <a href="javascript:void(0)" class="uppercase">View All Products</a> -->
                 </div>
                 <!-- /.box-footer -->
             </div>
@@ -124,4 +119,38 @@
     
 
 
+@stop
+
+@section('js')
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        $('#menu-restoran').DataTable();
+        $.ajax({
+            url: "{{route('api.transfered-order')}}", 
+            success: function(obj){
+                obj = obj.data;
+                string =  "";
+                for (let index = obj.length-1; index >= 0; --index){
+                    let o = obj[index];
+                    console.log(o);
+                    string += 
+                    "<ul class='products-list product-list-in-box'>"+
+                        "<li class='item'>"+
+                            "<div class='product-info'>"+
+                                "<a class='product-title'> Order ID "+o.order_id+
+                                "<span class='label label-warning pull-right'>"+o.total+"</span></a>"+
+                                "<span class='product-description'>"+
+                                    "Lunas !"+
+                                "</span>"+
+                            "</div>"+
+                        "</li>"+
+                    "</ul>"
+                }
+                $('#asd').html(string);
+            }
+        });
+    } );
+    </script>
 @stop

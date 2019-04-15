@@ -51,6 +51,9 @@ Route::prefix('restaurant')->group(function (){
             Route::get('home', function() {
                 return view('restaurant.home');
             })->name('home');
+            Route::get('profile', 'RestaurantsController@show')->name('profile');
+            Route::get('profile/edit', 'RestaurantsController@edit')->name('profile.edit');
+            Route::post('profile', 'RestaurantsController@update')->name('profile.update');
 
             Route::get('order', 'OrdersController@indexRestaurant')->name('order.restaurant');
             Route::get('order-history', 'OrdersController@history')->name('order.history');
@@ -74,20 +77,24 @@ Route::prefix('restaurant')->group(function (){
 Route::prefix('user')->group(function (){
     Route::name('user.')->group(function (){
         Route::get('home', 'OrdersController@bestResto')->name('home');
+        Route::get('profile', 'UsersController@show')->name('profile');
+        Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
+        Route::post('profile','UsersController@update')->name('profile.update');
 
         Route::get('order-history', 'OrdersController@historyUser')->name('order.history');
         Route::get('order', 'RestaurantsController@indexUser')->name('order');
         Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
         Route::post('order', 'OrdersController@store')->name('order.final');
+        Route::get('order/{id}/bayar', 'OrdersController@bayar')->name('order.bayar');
+        Route::post('order/{id}/bayar', 'OrdersController@update')->name('order.bayarr');
+        Route::get('order/{id}/placed', 'OrdersController@placedd')->name('order.placed');
     });
 });
 
 Route::prefix('admin')->group(function (){
     Route::name('admin.')->group(function (){
         Route::middleware(['admin.menu'])->group(function() {
-            Route::get('home', function() {
-                return view('admin.home');
-            })->name('home');
+            Route::get('home', 'UsersController@adminHome')->name('home');
             Route::get('order', 'OrdersController@index')->name('order.list');
             Route::get('order/{id}/confirmed', 'OrdersController@confirmed')->name('order.confirmed');
             Route::get('order/{id}/placed', 'OrdersController@placed')->name('order.placed');
@@ -97,3 +104,8 @@ Route::prefix('admin')->group(function (){
     });
 });
 
+Route::name('api.')->group(function (){
+    Route::get('transfer', 'OrdersController@getLastOrder')->name('transfer');
+    Route::post('transfer/{order}', 'RecentTransfersController@store')->name('transfered');
+    Route::get('transfered-order', 'RecentTransfersController@index')->name('transfered-order');
+});

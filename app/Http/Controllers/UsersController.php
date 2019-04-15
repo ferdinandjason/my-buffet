@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -42,7 +43,7 @@ class UsersController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('guest:user')->except('logout');
+        $this->middleware('guest:user')->except('logout','adminHome');
     }
 
     /**
@@ -63,6 +64,21 @@ class UsersController extends Controller
         }
 
         return view('users.index', compact('users'));
+    }
+
+    public function adminHome()
+    {
+        $menu = DB::table('menu_restaurants')->count();
+        $user = DB::table('users')->count();
+        $restaurant = DB::table('restaurants')->count();
+        $order = DB::table('orders')->count();
+        $data = [
+            'menu' => $menu,
+            'user' => $user,
+            'restaurant' => $restaurant,
+            'order' => $order,
+        ];
+        return view('admin.home', compact('data'));
     }
 
     public function formLogin()
@@ -163,7 +179,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return view('users.show', compact('user'));
+        return view('users.profile', compact('user'));
     }
 
     /**
@@ -173,10 +189,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $user = $this->repository->find($id);
-
+        $user = $this->repository->find(Auth::user()->id);
         return view('users.edit', compact('user'));
     }
 
@@ -190,13 +205,13 @@ class UsersController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $id);
+            $user = $this->repository->update($request->all(), Auth::user()->id);
 
             $response = [
                 'message' => 'User updated.',

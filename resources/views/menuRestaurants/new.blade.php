@@ -46,7 +46,7 @@
 
 @section('content')
 
-<div class="box box-primary">
+<div class="box box-success">
     <div class="row">
         <form role="form" method="POST" action="{{route('restaurant.menu.store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -93,7 +93,7 @@
             
             <div class="col-md-12">
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
             

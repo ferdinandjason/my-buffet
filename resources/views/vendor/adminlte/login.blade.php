@@ -72,8 +72,8 @@
     
         @if( strpos(url()->current(), 'user') !== false)
         <div class="restaurant-owner">
-            <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='{{ url('/login/restaurant') }}'">
-                Are You a Restaurant Owner?
+            <button type="button" class="btn btn-success btn-block" onclick="window.location.href='{{ url('/login/restaurant') }}'">
+                Are You a Hotel Owner?
             </button>
         </div>
         @endif
