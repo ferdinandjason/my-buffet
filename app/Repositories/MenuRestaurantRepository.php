@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface MenuRestaurantRepository extends RepositoryInterface
 {
-    //
+    public function getMenu($id);
 }

@@ -102,16 +102,16 @@ class OrdersController extends Controller
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $bestResto = $this->repository->getBestResto();
-        $orders = $this->repository->findUserOrderHistory(Auth('user')->user()->id);
+        $recentResto = $this->repository->recentResto(Auth('user')->user()->id);
         $data = array(
             "bestResto" => $bestResto,
-            "orders" => $bestResto,
+            "recentResto" => $recentResto,
         );
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $orderDetails,
+                'data' => $data,
             ]);
         }
 
@@ -188,6 +188,7 @@ class OrdersController extends Controller
                     'amount' => $request['amount'][$i],
                     'sub_total' => $request['sub_total'][$i],
                 ]);
+                $this->detailRepository->decrementMenu($request['menu_restaurant_id'][$i],$request['amount'][$i]);
             }
 
             $response = [

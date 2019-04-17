@@ -56,11 +56,6 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         return $this->model->with(['details', 'restaurant'])->where('restaurant_id',$id)->where('status',3)->orWhere('status',2)->get();
     }
 
-    public function findUserOrderHistory($id)
-    {
-        return $this->model->with(['details', 'user'])->where('user_id',$id)->get();
-    }
-
     public function changeStatusToDone($id)
     {
         $this->model->where('id',$id)->update(['status' => 3]);
@@ -74,6 +69,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function changeStatusToConfirmed($id)
     {
         $this->model->where('id',$id)->update(['status' => 1]);
+    }
+
+    public function recentResto($id)
+    {
+        return $this->model->with(['restaurant'])->groupBy('restaurant_id')->where('user_id',$id)->select('restaurant_id')->get();
     }
 
     public function getBestResto()

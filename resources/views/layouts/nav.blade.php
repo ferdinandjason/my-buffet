@@ -24,7 +24,7 @@
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->nama }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">
+                            <li><a href="{{route('user.profile')}}">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>My Profile
                             </a></li>
                             <li><a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">

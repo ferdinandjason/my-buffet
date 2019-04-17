@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OrderDetailRepository;
 use App\Entities\OrderDetail;
 use App\Validators\OrderDetailValidator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class OrderDetailRepositoryEloquent.
@@ -43,6 +44,10 @@ class OrderDetailRepositoryEloquent extends BaseRepository implements OrderDetai
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function decrementMenu($id, $amount){
+        DB::table('menu_restaurants')->where('id',$id)->decrement('stok',$amount);
     }
     
 }

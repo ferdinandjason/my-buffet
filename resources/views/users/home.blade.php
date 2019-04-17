@@ -244,11 +244,11 @@
 
 <div class="recent-restaurants">
     <div class="container">
-        <h1>Recent Orders</h1>
+        <h1>Recent Hotel</h1>
 
         <div class="card-container">
         
-        @foreach($data['bestResto'] as $resto)
+        @foreach($data['recentResto'] as $resto)
             <div class="card">
                 <span class="card-img">
                     <img src="https://fillmurray.com/g/640/320" class="img-responsive">

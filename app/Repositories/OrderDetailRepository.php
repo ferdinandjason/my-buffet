@@ -12,4 +12,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface OrderDetailRepository extends RepositoryInterface
 {
     //
+    public function decrementMenu($id, $amount);
 }
