@@ -43,7 +43,7 @@ class UsersController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
-        $this->middleware('guest:user')->except('logout','adminHome');
+        $this->middleware('guest:user')->except('logout','adminHome','show','edit','update');
     }
 
     /**
@@ -168,9 +168,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $user = $this->repository->find($id);
+        $user = $this->repository->find(Auth::user()->id);
 
         if (request()->wantsJson()) {
 
