@@ -188,6 +188,7 @@ class OrdersController extends Controller
                     'amount' => $request['amount'][$i],
                     'sub_total' => $request['sub_total'][$i],
                 ]);
+                $this->detailRepository->decrementMenu($request['menu_restaurant_id'][$i],$request['amount'][$i]);
             }
 
             $response = [

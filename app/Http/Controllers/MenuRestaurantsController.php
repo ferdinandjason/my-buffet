@@ -63,7 +63,7 @@ class MenuRestaurantsController extends Controller
 
     public function indexResto($id)
     {
-        $menuRestaurants = $this->repository->findByField('restaurant_id',$id);
+        $menuRestaurants = $this->repository->getMenu($id);
         return view('users.orderResto', compact('menuRestaurants','id'));
     }
 

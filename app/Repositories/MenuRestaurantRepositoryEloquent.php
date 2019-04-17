@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\MenuRestaurantRepository;
 use App\Entities\MenuRestaurant;
 use App\Validators\MenuRestaurantValidator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class MenuRestaurantRepositoryEloquent.
@@ -43,6 +44,11 @@ class MenuRestaurantRepositoryEloquent extends BaseRepository implements MenuRes
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function getMenu($id)
+    {
+        return $this->model->where('restaurant_id',$id)->where('stok','>=',0)->get();
     }
     
 }
