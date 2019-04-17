@@ -113,7 +113,19 @@
             min-width: 200px;
             width: 30%;
             flex: 0 0 auto;
-            margin-right: 10px;
+            margin: 0 10px 10px 0;
+        }
+
+        .container h1{
+            color: #3F7D20;
+        }
+
+        .card-body h5 a {
+            color: #72B01D;
+        }
+
+        .card-body h5 a:hover {
+            color: #3F7D20;
         }
 
     </style>
@@ -317,13 +329,12 @@
 </div>
 
 
-
+<!-- 
 @foreach ($data['orders'] as $order)
     <p>{{$order->id}}</p>
     <p>{{$order->created_at}}</p>
     <p>{{$order->total}}</p>
     <p>{{$order->status}}</p>
-    <!-- $order->details buat menu menunya apa aja -->
-@endforeach
+@endforeach -->
 
 @endsection

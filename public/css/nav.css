@@ -5,6 +5,8 @@
 
 .navbar-default .navbar-brand{
     color: #72B01D;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .navbar-default .navbar-brand:hover{
