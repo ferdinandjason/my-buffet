@@ -4,41 +4,48 @@
     <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
 
     <style>
-        .homepage-hero .container {
-            height: 80vh;
+        .homepage-hero {
+            height: 85vh;
         }
 
-        .homepage-hero .container h1 {
+        .homepage-hero .hero-container {
+            position: absolute;
+            top: 40%;
+            -ms-transform: translateY(-40%);
+            transform: translateY(-40%);
+        }
+
+        .homepage-hero .hero-container h1 {
             font-size: 32px;
             font-weight: 900;
             color: #F3EFF5;
-            margin-bottom: 455px;
+            margin-bottom: 45px;
         }
         
-        .homepage-hero .container h5{
+        .homepage-hero .hero-container h5 {
             color: #F3EFF5;
             margin-bottom: 45px;
         }
 
 
-        .homepage-hero .container h3 {
+        .homepage-hero .hero-container h3 {
             color: #F3EFF5;
             font-size: 18px;
         }
 
-        .homepage-hero .container h5 a {
+        .homepage-hero .hero-container h5 a {
             color: #72B01D;
         }
 
-        .homepage-hero .container h5 a:hover {
+        .homepage-hero .hero-container h5 a:hover {
             color: #3F7D20;
         }
 
-        .homepage-hero .container h3 a {
+        .homepage-hero .hero-container h3 a {
             color: #72B01D;
         }
 
-        .homepage-hero .container h3 a:hover {
+        .homepage-hero .hero-container h3 a:hover {
             color: #3F7D20;
         }
 
@@ -69,14 +76,53 @@
             }
         }
 
+        .overlay{
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(69,73,85, 0.5);
+            z-index: -1;
+        }
+
+        .homepage-how .how-container {
+            height: 40vh;
+            background: #F3EFF5;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .how-container h3 {
+            font-size: 24px;
+            color: #3F7D20;
+            margin-bottom: 25px;
+        }
+
+        .how-icon-set .row {
+            margin-right: 75px;
+            margin-left: 75px;
+        }
+
+        .how-icon-set .how-icon {
+            width: 120px;
+        }
+
+        .how-icon-set .col-md-4 h5 {
+            padding-left: 70px;
+            padding-right: 70px;
+            color: #454955
+        }
+
     </style>
 @stop
 
 @section('body')
     @include('layouts.nav')
-    <div class="container">
-        <section class="homepage-hero">
-            <div class="container center">
+    <section class="homepage-hero">
+        <div class="container">
+            <div class="hero-container">
                 <h1>Order your favourite food at any place</h1>
                 <h3>What are you waiting for?</h3>
 
@@ -88,10 +134,30 @@
 
             </div>
             
-        </section>
+            <div class="overlay"></div>
+        </div>
+    </section>
         
-        <section class="homepage-restaurants">
-            
-        </section>
-    </div>
+    <section class="homepage-how">
+        <div class="how-container">
+            <h3>How It Works</h3>
+            <div class="how-icon-set">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="how-icon" src="{{asset('/images/shop.png')}}"/>
+                        <h5>1. Find Restaurants or Hotels and browse hundred of menus to find the food you like</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="how-icon" src="{{asset('/images/payment.png')}}"/>
+                        <h5>2. Choose your payment. You can pay fast & secure online or on the Restaurant</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="how-icon" src="{{asset('/images/fooddome.png')}}"/>
+                        <h5>3. Food gets prepared & delivered to your door by the Restaurant or you can pick up on the Restaurant</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 @stop
