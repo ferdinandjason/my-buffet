@@ -47,7 +47,7 @@ Route::prefix('register')->group(function (){
 
 Route::prefix('restaurant')->group(function (){
     Route::name('restaurant.')->group(function (){
-        Route::middleware(['restaurant.menu'])->group(function (){
+        Route::middleware(['restaurant.menu','restrict'])->group(function (){
             Route::get('home', function() {
                 return view('restaurant.home');
             })->name('home');
@@ -76,24 +76,26 @@ Route::prefix('restaurant')->group(function (){
 
 Route::prefix('user')->group(function (){
     Route::name('user.')->group(function (){
-        Route::get('home', 'OrdersController@bestResto')->name('home');
-        Route::get('profile', 'UsersController@show')->name('profile');
-        Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
-        Route::post('profile','UsersController@update')->name('profile.update');
+        Route::middleware(['restrict'])->group(function (){
+            Route::get('home', 'OrdersController@bestResto')->name('home');
+            Route::get('profile', 'UsersController@show')->name('profile');
+            Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
+            Route::post('profile','UsersController@update')->name('profile.update');
 
-        Route::get('order-history', 'OrdersController@historyUser')->name('order.history');
-        Route::get('order', 'RestaurantsController@indexUser')->name('order');
-        Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
-        Route::post('order', 'OrdersController@store')->name('order.final');
-        Route::get('order/{id}/bayar', 'OrdersController@bayar')->name('order.bayar');
-        Route::post('order/{id}/bayar', 'OrdersController@update')->name('order.bayarr');
-        Route::get('order/{id}/placed', 'OrdersController@placedd')->name('order.placed');
+            Route::get('order-history', 'OrdersController@historyUser')->name('order.history');
+            Route::get('order', 'RestaurantsController@indexUser')->name('order');
+            Route::get('order/restaurant/{id}', 'MenuRestaurantsController@indexResto')->name('resto');
+            Route::post('order', 'OrdersController@store')->name('order.final');
+            Route::get('order/{id}/bayar', 'OrdersController@bayar')->name('order.bayar');
+            Route::post('order/{id}/bayar', 'OrdersController@update')->name('order.bayarr');
+            Route::get('order/{id}/placed', 'OrdersController@placedd')->name('order.placed');
+        });
     });
 });
 
 Route::prefix('admin')->group(function (){
     Route::name('admin.')->group(function (){
-        Route::middleware(['admin.menu'])->group(function() {
+        Route::middleware(['admin.menu','restrict'])->group(function() {
             Route::get('home', 'UsersController@adminHome')->name('home');
             Route::get('order', 'OrdersController@index')->name('order.list');
             Route::get('order/{id}/confirmed', 'OrdersController@confirmed')->name('order.confirmed');

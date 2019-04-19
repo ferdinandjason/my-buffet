@@ -284,6 +284,13 @@
 @section('adminlte_js')
 <script>
     $('#total').val(0)
+
+    if($('#total').val() == 0) {
+        $('#lanjut').attr("disabled", true);
+    } else {
+        $('#lanjut').attr("disabled", false);
+    }
+    
     let orderMenuId = []
 
     function pilihRestaurant(id){
@@ -339,6 +346,12 @@
             $('#total').val( parseInt($('#total').val()) + harga )
 
             $('.preview-total-price').text($('#total').val());
+
+            if($('#total').val() == 0) {
+                $('#lanjut').attr("disabled", true);
+            } else {
+                $('#lanjut').attr("disabled", false);
+            }
         }
     }
 

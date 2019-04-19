@@ -125,13 +125,13 @@
             <div class="hero-container">
                 <h1>Order your favourite food at any place</h1>
                 <h3>What are you waiting for?</h3>
-
-                <a href="{{url('/register')}}" class="button-register">Register Now!</a>
-
-                <h5>Already have an account?  <a href="{{url('/login')}}">Login</a></h5>
-
-                <h3>Are you a Restaurant Owner?  <a href="{{url('/login')}}">Join Us!</a></h3>
-
+                @if (Auth::check())
+                    <a href="{{route('user.home')}}" class="button-register">Go to Dashboard</a>
+                @else
+                    <a href="{{url('/register')}}" class="button-register">Register Now!</a>
+                    <h5>Already have an account?  <a href="{{url('/login')}}">Login</a></h5>
+                    <h3>Are you a Restaurant Owner?  <a href="{{url('/login/restaurant')}}">Join Us!</a></h3>
+                @endif
             </div>
             
             <div class="overlay"></div>

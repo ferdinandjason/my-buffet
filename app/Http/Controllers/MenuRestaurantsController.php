@@ -196,7 +196,7 @@ class MenuRestaurantsController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('restaurant.menu.index');
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {

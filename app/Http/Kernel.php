@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
 
         'restaurant.menu' => \App\Http\Middleware\RestaurantMenu::class,
         'admin.menu' => \App\Http\Middleware\AdminMenu::class,
+        'restrict' => \App\Http\Middleware\CheckPriviledge::class,
     ];
 
     /**
