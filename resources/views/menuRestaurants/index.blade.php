@@ -51,13 +51,15 @@
                                 <td class="harga">{{$menu->harga}}</td>
                                 <td>
                                     <div style="display:flex">
-                                        <button type="button" class="btn btn-info">
-                                            <a href="{{$menu->id}}/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                        </button>
+                                        <a href="menu/{{$menu->id}}/edit">
+                                            <button type="button" class="btn btn-info" style="margin-left:10px;">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                        </a>
                                         <form action="{{'menu/delete/'.$menu->id}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}                                
-                                            <button type="submit" class="btn btn-info btn-danger">
+                                            <button type="submit" class="btn btn-info btn-danger" style="margin-left:10px;">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </form>

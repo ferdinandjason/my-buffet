@@ -51,7 +51,7 @@
             <div class="box-body">
             
             <div class="row">
-            @foreach ($orders as $order)
+            @forelse ($orders as $order)
                 <div class="col-md-3">
                     <div class="box">
                         <div class="box-header">
@@ -104,7 +104,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-md-12"><p>No Order Right Now!</p></div>
+            @endforelse
             </div>
 
             </div>
