@@ -1,6 +1,20 @@
 @extends('adminlte::page')
 
+<?php
+    if(isset($_POST[''])){
+        $data = $_POST['imagebase64'];
+
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+        $data = base64_decode($data);
+
+        file_put_contents('image64.png', $data);
+    }
+?>
+
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.css">
+
 <style>
     html, body {
         padding-top: 0px !important;
@@ -48,7 +62,7 @@
 
 <div class="box box-success">
     <div class="row">
-        <form role="form" method="POST" action="{{route('restaurant.menu.store')}}" enctype="multipart/form-data">
+        <form id="addnewform" role="form" method="POST" action="{{route('restaurant.menu.store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="col-md-8">
@@ -76,7 +90,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <div class="boxImage">
+                        <div class="boxImage" id="boxImageId">
                             <img id="foodImage" src="{{asset('/images/foodbefore.jpg')}}" alt="your image"/>
                         </div>
 
@@ -90,10 +104,11 @@
                 
             </div>
             <input type="hidden" id="restaurant_id" name="restaurant_id" value="{{\Auth('restaurant')->user()->id}}"/>
+            <input type="hidden" id="new_image" name="new_image" value="">
             
             <div class="col-md-12">
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button id="buttonaddnew" class="btn btn-success">Submit</button>
                 </div>
             </div>
             
@@ -103,18 +118,25 @@
 @stop
 
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#menu-restoran').DataTable();
         } );
 
-
-        function readURL(input) {
+        function readURL(input) {            
             if (input.files && input.files[0]) {
+                boxImageId.style.paddingTop = "0";
+
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    $('#foodImage').attr('src', e.target.result);
+                $('#foodImage').attr('src', e.target.result);
+                    $('#foodImage').croppie({
+                        viewport: { width: 300, height: 300 },
+                        boundary: { width: 300, height: 300 }
+                    });
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -124,6 +146,24 @@
         $("#foto").change(function() {
             readURL(this);
         });
+
+        $("#buttonaddnew").click(function(e) {
+
+            $('#foodImage').croppie('result', {
+                type: 'canvas',
+                size: {width: 450, height: 450}
+
+            }).then(function (data) {
+                $('input[name=new_image]').val(data);
+                // alert($('input[name=new_image]').val());
+
+                $("#addnewform").submit();
+            });
+        })
+
+
+
+        
 
     </script>
 @stop

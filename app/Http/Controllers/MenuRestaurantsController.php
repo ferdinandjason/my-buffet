@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Storage;
 
 use Illuminate\Http\Request;
 
@@ -81,13 +82,23 @@ class MenuRestaurantsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
+
     public function store(MenuRestaurantCreateRequest $request)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $uploadedFile = $request->file('foto');
+
             $path = $uploadedFile->store('foto/'.$request['restaurant_id'],'public');
+
+            $cropped= $request['new_image'];
+
+            list($type, $cropped) = explode(';', $cropped);
+            list(, $cropped)      = explode(',', $cropped);
+            $cropped = base64_decode($cropped);
+
+            Storage::put('/public/'.$path, $cropped);
 
             $menuRestaurant = $this->repository->create([
                 'restaurant_id' => $request['restaurant_id'],

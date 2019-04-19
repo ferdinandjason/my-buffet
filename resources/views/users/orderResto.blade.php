@@ -2,6 +2,10 @@
 
 @section('adminlte_css')
     <style>
+        .colmenu {
+            padding: 8px;
+        }
+
         .card {
             background-color: #fff;
             border: 1px solid #eee; 
@@ -21,7 +25,7 @@
         .card .card-body {
             display: table; 
             width: 100%; 
-            padding: 12px;
+            padding: 10px;
         }
 
         .card .card-body h5, .card .card-body h4 {
@@ -29,9 +33,24 @@
             margin: 0;
         }
 
+        .card .card-body h5 {
+            font-size: 12px;
+            color: #3F7D20;
+        }
+
+        .card .card-body h4 {
+            font-size: 15px;
+            color: #3F7D20;
+        }
+
         .card .card-body p {
-            margin-top: 6px;
+            margin-top: 2px;
             margin-bottom: 12px;
+        }
+
+        .card .card-body .inline{
+           display:  flex;
+           justify-content: space-between;
         }
 
         .card .card-body .inline > *{
@@ -40,19 +59,30 @@
 
         .card .card-body .inline > *:nth-child(2) {
             float: right;
+            width: 30%;
         }
 
+        .card .card-body .inline button{
+           background: #72B01D;
+           font-weight: 400;
+        }
+
+        .card .card-body .inline .btn-number {
+            background: #72B01D;
+        }
+
+
         .preview-price {
-            width: 50%;
+            width: 60%;
             height: 50px;
             right: 0;
             left: 0;
             bottom: 0;
             position: fixed;
             left: 50%;
-            margin-left: -25%;
+            margin-left: -30%;
             padding: 0 30px;
-            background-color: #00a65a;
+            background: #72B01D;
             border-radius: 6px; 
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
@@ -105,9 +135,12 @@
             background-color: white;
         }
 
-        .card img {
-            height: 350px;
-            width: 350px;
+        .space {
+            height: 100px;
+        }
+
+        .modal-header {
+            background: #72B01D;
         }
 
     </style>
@@ -116,30 +149,33 @@
 @section('body')
     @include('layouts.nav')
     <div class="container">
+        <div class="row">
         @foreach ($menuRestaurants as $menu)
-            <div class="col-sm-4">
+            <div class="col-sm-3 colmenu">
                 <div class="card">
                     <span class="card-img">
-                        <img src="{{Storage::url($menu->foto)}}" class="img-responsive" id="foto_{{$menu->id}}">
+                        <div class="menuimg">
+                            <img src="{{Storage::url($menu->foto)}}" class="img-responsive" id="foto_{{$menu->id}}">
+                        </div>
                         <div class="card-body">
                             <h5><b>{{$menu->kategori}}</b></h5>
                             <h4>{{$menu->nama_makanan}}</h4>
                             <p>{{$menu->deskripsi}}</p>
 
-                            <div class="inline" style="display:  flex;justify-content: space-between;">
+                            <div class="inline">
                                 <b><p id="harga_{{$menu->id}}" data-harga="{{$menu->harga}}">{{$menu->harga}}</p></b>
-                                <button class="btn btn-sm bg-olive" id="tambah_{{$menu->id}}" onclick="pilihMenu({{$menu->id}}, '{{$menu->nama_makanan}}', {{$menu->harga}})">+ Add</button>
+                                <button class="btn btn-sm" id="tambah_{{$menu->id}}" onclick="pilihMenu({{$menu->id}}, '{{$menu->nama_makanan}}', {{$menu->harga}})">+ Add</button>
                                 <div id="tambah_kurang_{{$menu->id}}" style="display: none;">
                                     <div class="input-group" style="width: 150px;">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="jumlah_{{$menu->id}}" id="__{{$menu->id}}">
-                                                <span class="glyphicon glyphicon-minus"></span>
+                                                -
                                             </button>
                                         </span>
                                         <input type="text" name="jumlah_{{$menu->id}}" class="form-control input-number" value="1" min="1" max="10">
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default bg-olive btn-number" data-type="plus" data-field="jumlah_{{$menu->id}}">
-                                                <span class="glyphicon glyphicon-plus"></span>
+                                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="jumlah_{{$menu->id}}">
+                                                +
                                             </button>
                                         </span>
                                     </div>
@@ -164,6 +200,12 @@
             <p>{{$menu->foto}}</p>
             <p>{{$menu->restaurant->nama}}</p> -->
         @endforeach
+        </div>
+
+        <div class="row">
+            <div class="space">
+            </div>
+        </div>
 
         <div class="preview-price">
             <h4><b>Total: </b> </h4>
@@ -175,7 +217,7 @@
         <div class="modal fade" id="modal-cart" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header bg-olive">
+                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Keranjang Pemesanan</h4>
                     </div>
@@ -225,7 +267,7 @@
                             </div>
                             <div style="display: flex;justify-content: space-around;">
                                 <button type="submit" class="btn btn-default" data-dismiss="modal" style="width: 100%;">Lihat Menu</button>
-                                <button type="submit" class="btn btn-default bg-olive" style="width: 100%;">Lanjut ke Pembayaran</button>
+                                <button type="submit" class="btn btn-default" style="width: 100%; background: #72B01D;">Lanjut ke Pembayaran</button>
                             </div>
                         </div>
 
@@ -233,6 +275,8 @@
                 </div>
             </div>
         </div>
+
+        
 
     </div>
 @stop
@@ -259,7 +303,7 @@
 
         } else {
             $('#tambah_'+id).css("display","none");
-            $('#tambah_kurang_'+id).css("display","block");
+            $('#tambah_kurang_'+id).css("display","inline-block");
             orderMenuId.push(id);
             $('#dynamicField').append(
                 "<br><input type='hidden' name='menu_restaurant_id[]' value='"+id+"' id='menuRestaurantId_"+id+"'/>"+ 
@@ -275,18 +319,18 @@
                 "<tr id='tabletr_" +id + "' class='flex-item'><td style='display: flex;justify-content: space-between;'><div id='fotoo_"+id+"'></div><h5 style='margin-top: 15px;font-size: 14px !important;' >"+nama+"<div style='display: block;margin-top:10px;'>"+
                     "<div class='input-group' style='width: 150px;'><span class='input-group-btn'>"+
                         "<button type='button' class='btn btn-default btn-number btn-number"+id+"' data-type='minus' data-field='popupjumlah_"+id+"'>"+
-                            "<span class='glyphicon glyphicon-minus'></span>"+
+                            "-"+
                         "</button>"+
                         "</span>"+
                         "<input type='text' name='popupjumlah_"+id+"' class='form-control input-number' value='1' min='1' max='10' id='asd"+id+"'>"+
                         "<span class='input-group-btn'>"+
                             "<button type='button' class='btn btn-default btn-number btn-number"+id+"' data-type='plus' data-field='popupjumlah_"+id+"'>"+
-                                "<span class='glyphicon glyphicon-plus'></span>"+
+                                "+"+
                             "</button>"+
                         "</span>"+
                     "</div></h5>"+
                 "</div></td>"+
-                "<td style='margin: 20px;display:flex;'><div  id='hargaMenu_"+id+"'>" + harga + "</div><button type='button' onclick='hapusMenu("+id+","+harga+")' class='close' style='margin-left: 20px;margin-top: -2px;margin-right: -15px;'>&times;</button></td></tr>"
+                "<td style='margin: 20px;display:flex; align-items: center;'><div  id='hargaMenu_"+id+"'>" + harga + "</div><button type='button' onclick='hapusMenu("+id+","+harga+")' class='close' style='margin-left: 20px;margin-top: -2px;margin-right: -15px;'>&times;</button></td></tr>"
             )
             test(".btn-number"+id, "#asd"+id);
 
