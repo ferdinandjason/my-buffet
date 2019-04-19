@@ -328,13 +328,4 @@
     </div>
 </div>
 
-
-<!-- 
-@foreach ($data['orders'] as $order)
-    <p>{{$order->id}}</p>
-    <p>{{$order->created_at}}</p>
-    <p>{{$order->total}}</p>
-    <p>{{$order->status}}</p>
-@endforeach -->
-
 @endsection

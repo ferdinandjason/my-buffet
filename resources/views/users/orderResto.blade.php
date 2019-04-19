@@ -106,8 +106,8 @@
         }
 
         .card img {
-            height: 350px;
-            width: 350px;
+            height: 253px;
+            width: 253px;
         }
 
     </style>
@@ -115,9 +115,9 @@
 
 @section('body')
     @include('layouts.nav')
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px;">
         @foreach ($menuRestaurants as $menu)
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="card">
                     <span class="card-img">
                         <img src="{{Storage::url($menu->foto)}}" class="img-responsive" id="foto_{{$menu->id}}">
@@ -225,7 +225,7 @@
                             </div>
                             <div style="display: flex;justify-content: space-around;">
                                 <button type="submit" class="btn btn-default" data-dismiss="modal" style="width: 100%;">Lihat Menu</button>
-                                <button type="submit" class="btn btn-default bg-olive" style="width: 100%;">Lanjut ke Pembayaran</button>
+                                <button type="submit" class="btn btn-default bg-olive" style="width: 100%;" id='lanjut'>Lanjut ke Pembayaran</button>
                             </div>
                         </div>
 
@@ -240,6 +240,13 @@
 @section('adminlte_js')
 <script>
     $('#total').val(0)
+
+    if($('#total').val() == 0) {
+        $('#lanjut').attr("disabled", true);
+    } else {
+        $('#lanjut').attr("disabled", false);
+    }
+    
     let orderMenuId = []
 
     function pilihRestaurant(id){
@@ -295,6 +302,12 @@
             $('#total').val( parseInt($('#total').val()) + harga )
 
             $('.preview-total-price').text($('#total').val());
+
+            if($('#total').val() == 0) {
+                $('#lanjut').attr("disabled", true);
+            } else {
+                $('#lanjut').attr("disabled", false);
+            }
         }
     }
 

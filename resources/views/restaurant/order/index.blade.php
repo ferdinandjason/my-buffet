@@ -52,7 +52,7 @@
             
             <div class="row">
             @foreach ($orders as $order)
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="box">
                         <div class="box-header">
                             <div class="row">
@@ -82,15 +82,15 @@
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <p><b>Note: </b>{{$order->comments}}</p>
                                 </div>
                                 @if($order->delivery == 1)
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <p><b>Alamat: </b>{{$order->alamat}}</p>
                                 </div>
                                 @endif
-                                <div class="col-md-4" style="display: flex;justify-content: space-between;">
+                                <div class="col-md-6" style="display: flex;justify-content: space-between;">
                                     <b>Total: </b><p class="harga">{{$order->total}}</p>
                                 </div>
                             </div>
