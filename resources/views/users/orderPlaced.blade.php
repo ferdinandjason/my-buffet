@@ -3,7 +3,7 @@
 @section('adminlte_css')
     <style>
         .placed {
-            color: #3d9970 !important;
+            color: #72B01D !important;
             font-size: 80px;
         }
 
@@ -107,7 +107,7 @@
 
                         <div class="col-md-12 text-center"> 
                             <a href="{{route('user.home')}}">
-                                <button type="submit" class="btn btn-default bg-olive" style="width: 15%;">
+                                <button type="submit" class="btn btn-default" style="width: 15%; background: #72B01D; color: #0D0A0B">
                                     Home
                                 </button>
                             </a>

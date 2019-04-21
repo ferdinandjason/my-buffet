@@ -60,8 +60,8 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading  bg-olive">
-                        <h3 class="panel-title">Pembayaran</h3>
+                    <div class="panel-heading" style="background: #72B01D">
+                        <h3 class="panel-title" style="color: #0D0A0B">Pembayaran</h3>
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12 text-center"> 
@@ -115,8 +115,8 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading  bg-olive">
-                        <h3 class="panel-title">Order</h3>
+                    <div class="panel-heading" style="background: #72B01D">
+                        <h3 class="panel-title" style="color: #0D0A0B">Order</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{route('user.order.bayarr',$order->id)}}" method="POST">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-center"> 
-                            <button type="submit" class="btn btn-default bg-olive" style="width: 50%;">Order</button>
+                            <button type="submit" class="btn btn-default" style="width: 50%; background: #72B01D; color: #0D0A0B" >Order</button>
                         </div>
                         </form>
                     </div>
@@ -166,8 +166,8 @@
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading bg-olive">
-                        <h3 class="panel-title">Detail Order</h3>
+                    <div class="panel-heading" style="background: #72B01D"> 
+                        <h3 class="panel-title" style="color: #0D0A0B">Detail Order</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-condensed" id="dynamicTable">
