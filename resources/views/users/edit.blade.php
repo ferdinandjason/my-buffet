@@ -88,7 +88,7 @@
 @section('body')
     <div class="container profile-container">
         
-        <form id="edit-user-profile" role="form" method="POST" action="#" enctype="multipart/form-data">
+        <form id="edit-user-profile" role="form" method="POST" action="{{route('user.profile.update')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         
         <div class="row row-profile">
@@ -96,19 +96,19 @@
             <div class="left-profile col-md-4">
                 <div class="form-group">
                     <div id="user-photo">
-                        <img id="user-avatar" src="{{asset('/images/userdefault.png')}}" alt="your image"/>
+                        <img id="user-avatar" src="{{Storage::url($user->avatar)}}" alt="your image"/>
                     </div>
 
                     <label for="foto">Change Photo</label>
                     <input type="file" id="foto" name="foto">
+                    <input type="hidden" id="new_image" name="new_image" value="">
                 </div>
             </div>
 
 
             <div class="right-profile col-md-8">
                 <div class="row profile-header">
-                    <h1>Yolanda Hertita Pratama</h1>
-                    <h5><b>Joined at: </b>10 April 2019</h5>
+                    <h1>{{$user->nama}}</h1>
                 </div>
 
                 <div class="row profile-personal">
@@ -116,27 +116,27 @@
                     <div class="personal-info">
                         <div class="table-row">
                             <h3 class="table-title">Username</h3>
-                            <input type="text" class="form-control table-content" id="username" name="username" placeholder="{{ old('username') }}" value="{{ old('username') }}">
+                            <input type="text" class="form-control table-content" id="username" name="username" placeholder="{{ old('username') }}" value="{{ $user->username }}">
                             <!-- <h5 class="table-content">yolandahp</h5> -->
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Full Name</h3>
-                            <input type="text" class="form-control table-content" id="fullname" name="fullname" placeholder="{{ old('fullname') }}" value="{{ old('fullname') }}">
+                            <input type="text" class="form-control table-content" id="fullname" name="nama" placeholder="{{ old('fullname') }}" value="{{ $user->nama }}">
                             <!-- <h5 class="table-content">Yolanda Hertita Pratama</h5> -->
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Email</h3>
-                            <input type="email" class="form-control table-content" id="email" name="email" placeholder="{{ old('email') }}" value="{{ old('email') }}">
+                            <input type="email" class="form-control table-content" id="email" name="email" placeholder="{{ old('email') }}" value="{{ $user->email }}">
                             <!-- <h5 class="table-content">yolandahertita903@gmail.com</h5> -->
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Alamat</h3>
-                            <input type="text" class="form-control table-content" id="alamat" name="alamat" placeholder="{{ old('alamat') }}" value="{{ old('alamat') }}">
+                            <input type="text" class="form-control table-content" id="alamat" name="alamat" placeholder="{{ old('alamat') }}" value="{{ $user->alamat }}">
                             <!-- <h5 class="table-content">Jln Teknik Komputer Gg II Perumahan dosen ITS Blok U no 26, ITS, Keputih, Sukolilo, Surabaya</h5> -->
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">No Telp</h3>
-                            <input type="text" class="form-control table-content" id="notelp" name="notelp" placeholder="{{ old('notelp') }}" value="{{ old('notelp') }}">
+                            <input type="text" class="form-control table-content" id="notelp" name="nomor_telepon" placeholder="{{ old('notelp') }}" value="{{ $user->nomor_telepon }}">
                             <!-- <h5 class="table-content">089648491314</h5> -->
                         </div>
                     </div>
@@ -147,16 +147,16 @@
                     <div class="password-account">
                         <div class="table-row">
                             <h3 class="table-title">Password</h3>
-                            <input type="password" class="form-control table-content" id="password" name="password" placeholder="{{ old('password') }}" value="{{ old('password') }}">
+                            <input type="password" class="form-control table-content" id="password" name="passwd" placeholder="{{ old('password') }}" value="">
                             <!-- <h5 class="table-content">************</h5> -->
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">New Password</h3>
-                            <input type="password" class="form-control table-content" id="newpassword" name="newpassword" value="{{ old('password') }}">
+                            <input type="password" class="form-control table-content" id="newpassword" name="password" value="">
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Confirm New Password</h3>
-                            <input type="password" class="form-control table-content" id="confirmnewpassword" name="confirmnewpassword" value="{{ old('password') }}">
+                            <input type="password" class="form-control table-content" id="confirmnewpassword" name="password_confirmation" value="">
                         </div>
                     </div>
                 </div>
@@ -201,6 +201,20 @@
         $("#foto").change(function() {
             readURL(this);
         });
+
+        $("#buttonedit").click(function(e) {
+
+            $('#user-avatar').croppie('result', {
+                type: 'canvas',
+                size: {width: 450, height: 450}
+
+            }).then(function (data) {
+                $('input[name=new_image]').val(data);
+                // alert($('input[name=new_image]').val());
+
+                $("#edit-resto-profile").submit();
+            });
+        })
 
     </script>
 @endsection

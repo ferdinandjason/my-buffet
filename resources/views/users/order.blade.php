@@ -77,7 +77,7 @@
             <div class="card">
                 <span class="card-img">
                     <div class="card-img-border">
-                        <img src="https://fillmurray.com/g/640/320" class="img-responsive">
+                        <img src="{{Storage::url($resto->avatar)}}" class="img-responsive">
                     </div>
 
                     <div class="card-body">

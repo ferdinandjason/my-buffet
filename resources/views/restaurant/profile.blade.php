@@ -99,14 +99,15 @@
                         
                         <div class="left-profile col-md-4">
                             <div id="user-photo">
-                                <img id="user-avatar" src="{{asset('/images/restodefault.png')}}" alt="your image"/>
+                                <img id="user-avatar" src="{{Storage::url($restaurant->avatar)}}" alt="your image"/>
+                                <!-- <img id="user-avatar" src="{{asset('/images/restodefault.png')}}" alt="your image"/> -->
                             </div>
                         </div>
 
                         <div class="right-profile col-md-8">
                             <div class="row profile-header">
-                                <h1>Hotel Majapahit</h1>
-                                <h5><b>Joined at: </b>10 April 2019</h5>
+                                <h1>{{$restaurant->nama}}</h1>
+                                <h5><b>Joined at: </b>{{\Carbon\Carbon::parse($restaurant->created_at)->toFormattedDateString()}}</h5>
                             </div>
 
                             <div class="row profile-personal">
@@ -114,23 +115,19 @@
                                 <div class="personal-info">
                                     <div class="table-row">
                                         <h3 class="table-title">Username</h3>
-                                        <h5 class="table-content">majapahit</h5>
+                                        <h5 class="table-content">{{$restaurant->username}}</h5>
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">Name</h3>
-                                        <h5 class="table-content">Hotel Majapahit</h5>
-                                    </div>
-                                    <div class="table-row">
-                                        <h3 class="table-title">Email</h3>
-                                        <h5 class="table-content">hotelmajapahit@gmail.com</h5>
+                                        <h5 class="table-content">{{$restaurant->nama}}</h5>
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">Alamat</h3>
-                                        <h5 class="table-content">Jln Teknik Komputer Gg II Perumahan dosen ITS Blok U no 26, ITS, Keputih, Sukolilo, Surabaya</h5>
+                                        <h5 class="table-content">{{$restaurant->alamat}}</h5>
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">No Telp</h3>
-                                        <h5 class="table-content">089648491314</h5>
+                                        <h5 class="table-content">{{$restaurant->nomor_telepon}}</h5>
                                     </div>
                                 </div>
                             </div>

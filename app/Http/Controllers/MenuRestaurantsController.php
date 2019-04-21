@@ -184,7 +184,27 @@ class MenuRestaurantsController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $menuRestaurant = $this->repository->update($request->all(), $id);
+            $uploadedFile = $request->file('foto');
+
+            $path = $uploadedFile->store('foto/'.$request['restaurant_id'],'public');
+
+            $cropped= $request['new_image'];
+
+            list($type, $cropped) = explode(';', $cropped);
+            list(, $cropped)      = explode(',', $cropped);
+            $cropped = base64_decode($cropped);
+
+            Storage::put('/public/'.$path, $cropped);
+
+            $menuRestaurant = $this->repository->update([
+                'restaurant_id' => $request['restaurant_id'],
+                'nama_makanan' => $request['nama_makanan'],
+                'deskripsi' => $request['deskripsi'],
+                'kategori' => strtolower($request['kategori']),
+                'harga' => $request['harga'],
+                'foto' => $path,
+                'stok' => $request['stok'],
+            ], $id);
 
             $response = [
                 'message' => 'MenuRestaurant updated.',

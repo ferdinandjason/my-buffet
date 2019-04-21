@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -208,11 +209,42 @@ class UsersController extends Controller
      */
     public function update(UserUpdateRequest $request)
     {
+        $id = Auth::user()->id;
+
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $user_now = $this->repository->find(Auth::user()->id);
 
-            $user = $this->repository->update($request->all(), Auth::user()->id);
+            $update = [
+                'nama' => $request['nama'],
+                'username' => $request['username'],
+                'alamat' => $request['alamat'],
+                'nomor_telepon' => $request['nomor_telepon'],
+                'email' => $request['email'],
+            ];
+
+            if(Hash::check($request['passwd'], $user_now->password) && $request['password'] == $request['password_confirmation']) {
+                $update = array_merge($update, [
+                    'password' => Hash::make($request['password']),
+                ]);
+            }
+
+            $uploadedFile = $request->file('foto');
+            if ($uploadedFile != null){
+                $path = $uploadedFile->store('user/'.$id,'public');
+                $cropped= $request['new_image'];
+
+                list($type, $cropped) = explode(';', $cropped);
+                list(, $cropped)      = explode(',', $cropped);
+                $cropped = base64_decode($cropped);
+                Storage::put('/public/'.$path, $cropped);
+                $update = array_merge($update, [
+                    'avatar' => $path,
+                ]);
+            }
+
+            $user = $this->repository->update($update, $id);
 
             $response = [
                 'message' => 'User updated.',

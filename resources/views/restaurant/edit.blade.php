@@ -94,7 +94,7 @@
 
                 <div class="container profile-container">
 
-                    <form id="edit-resto-profile" role="form" method="POST" action="#" enctype="multipart/form-data">
+                    <form id="edit-resto-profile" role="form" method="POST" action="{{route('restaurant.update')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     
                     <div class="row row-profile">
@@ -102,18 +102,20 @@
                         <div class="left-profile col-md-4">
                             <div class="form-group">
                                 <div id="resto-photo">
-                                    <img id="resto-avatar" src="{{asset('/images/restodefault.png')}}" alt="your image"/>
+                                    <img id="resto-avatar" src="{{Storage::url($restaurant->avatar)}}" alt="your image"/>
+                                    <!-- <img id="resto-avatar" src='' alt="your image"/> -->
                                 </div>
 
                                 <label for="foto">Change Photo</label>
                                 <input type="file" id="foto" name="foto">
+                                <input type="hidden" id="new_image" name="new_image" value="">
                             </div>
                         </div>
 
                         <div class="right-profile col-md-8">
                             <div class="row profile-header">
-                                <h1>Hotel Majapahit</h1>
-                                <h5><b>Joined at: </b>10 April 2019</h5>
+                                <h1>{{$restaurant->nama}}</h1>
+                                <h5><b>Joined at: </b>{{\Carbon\Carbon::parse($restaurant->created_at)->toFormattedDateString()}}</h5>
                             </div>
 
                             <div class="row profile-personal">
@@ -121,27 +123,22 @@
                                 <div class="personal-info">
                                     <div class="table-row">
                                         <h3 class="table-title">Username</h3>
-                                        <input type="text" class="form-control table-content" id="username" name="username" placeholder="{{ old('username') }}" value="{{ old('username') }}">
+                                        <input type="text" class="form-control table-content" id="username" name="username" placeholder="{{ old('username') }}" value="{{ $restaurant->username }}">
                                         <!-- <h5 class="table-content">majapahit</h5> -->
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">Name</h3>
-                                        <input type="text" class="form-control table-content" id="name" name="name" placeholder="{{ old('name') }}" value="{{ old('name') }}">
+                                        <input type="text" class="form-control table-content" id="nama" name="nama" placeholder="{{ old('name') }}" value="{{ $restaurant->nama }}">
                                         <!-- <h5 class="table-content">Hotel Majapahit</h5> -->
                                     </div>
                                     <div class="table-row">
-                                        <h3 class="table-title">Email</h3>
-                                        <input type="email" class="form-control table-content" id="email" name="email" placeholder="{{ old('email') }}" value="{{ old('email') }}">
-                                        <!-- <h5 class="table-content">hotelmajapahit@gmail.com</h5> -->
-                                    </div>
-                                    <div class="table-row">
                                         <h3 class="table-title">Alamat</h3>
-                                        <input type="text" class="form-control table-content" id="alamat" name="alamat" placeholder="{{ old('alamat') }}" value="{{ old('alamat') }}">
+                                        <input type="text" class="form-control table-content" id="alamat" name="alamat" placeholder="{{ old('alamat') }}" value="{{ $restaurant->alamat }}">
                                         <!-- <h5 class="table-content">Jln Teknik Komputer Gg II Perumahan dosen ITS Blok U no 26, ITS, Keputih, Sukolilo, Surabaya</h5> -->
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">No Telp</h3>
-                                        <input type="text" class="form-control table-content" id="notelp" name="notelp" placeholder="{{ old('notelp') }}" value="{{ old('notelp') }}">
+                                        <input type="text" class="form-control table-content" id="nomor_telepon" name="nomor_telepon" placeholder="{{ old('notelp') }}" value="{{ $restaurant->nomor_telepon }}">
                                         <!-- <h5 class="table-content">089648491314</h5> -->
                                     </div>
                                 </div>
@@ -152,16 +149,16 @@
                                 <div class="password-account">
                                     <div class="table-row">
                                         <h3 class="table-title">Password</h3>
-                                        <input type="password" class="form-control table-content" id="password" name="password" placeholder="{{ old('password') }}" value="{{ old('password') }}">
+                                        <input type="password" class="form-control table-content" id="passwd" name="passwd" placeholder="{{ old('password') }}" value="">
                                         <!-- <h5 class="table-content">************</h5> -->
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">New Password</h3>
-                                        <input type="password" class="form-control table-content" id="newpassword" name="newpassword" value="{{ old('password') }}">
+                                        <input type="password" class="form-control table-content" id="password" name="password" value="">
                                     </div>
                                     <div class="table-row">
                                         <h3 class="table-title">Confirm New Password</h3>
-                                        <input type="password" class="form-control table-content" id="confirmnewpassword" name="confirmnewpassword" value="{{ old('password') }}">
+                                        <input type="password" class="form-control table-content" id="password_confirmation" name="password_confirmation" value="">
                                     </div>
                                 </div>
                             </div>
@@ -212,6 +209,20 @@
 
     $("#foto").change(function() {
         readURL(this);
+    });
+
+    $("#buttonedit").click(function(e) {
+
+        $('#resto-avatar').croppie('result', {
+            type: 'canvas',
+            size: {width: 450, height: 450}
+
+        }).then(function (data) {
+            $('input[name=new_image]').val(data);
+            // alert($('input[name=new_image]').val());
+
+            $("#edit-resto-profile").submit();
+        });
     });
 
 </script>

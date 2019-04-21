@@ -23,6 +23,7 @@ class Restaurant extends Authenticatable implements Transformable
     const ATTRIBUTE_PASSWORD = 'password';
     const ATTRIBUTE_ALAMAT = 'alamat';
     const ATTRIBUTE_NOMOR_TELEPON = 'nomor_telepon';
+    const ATTRIBUTE_AVATAR = 'avatar';
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +35,8 @@ class Restaurant extends Authenticatable implements Transformable
         Restaurant::ATTRIBUTE_USERNAME,
         Restaurant::ATTRIBUTE_PASSWORD,
         Restaurant::ATTRIBUTE_ALAMAT,
-        Restaurant::ATTRIBUTE_NOMOR_TELEPON
+        Restaurant::ATTRIBUTE_NOMOR_TELEPON,
+        Restaurant::ATTRIBUTE_AVATAR,
     ];
 
     public function menu()

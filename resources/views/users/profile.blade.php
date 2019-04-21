@@ -84,16 +84,16 @@
                 <button type="button" class="button-edit" onclick="location.href='{{route('user.profile.edit')}}'">Edit Profile</button>
             </div>
             
-            <div class="left-profile col-md-4">
+            <div class="left-profile col-md-4"> 
                 <div id="user-photo">
-                    <img id="user-avatar" src="{{asset('/images/userdefault.png')}}" alt="your image"/>
+                    <img id="user-avatar" src="{{Storage::url($user->avatar)}}" alt="your image"/>
                 </div>
             </div>
 
             <div class="right-profile col-md-8">
                 <div class="row profile-header">
-                    <h1>Yolanda Hertita Pratama</h1>
-                    <h5><b>Joined at: </b>10 April 2019</h5>
+                    <h1>{{$user->nama}}</h1>
+                    <h5><b>Joined at: </b>{{\Carbon\Carbon::parse($user->created_at)->toFormattedDateString()}}</h5>
                 </div>
 
                 <div class="row profile-personal">
@@ -101,23 +101,23 @@
                     <div class="personal-info">
                         <div class="table-row">
                             <h3 class="table-title">Username</h3>
-                            <h5 class="table-content">yolandahp</h5>
+                            <h5 class="table-content">{{$user->username}}</h5>
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Full Name</h3>
-                            <h5 class="table-content">Yolanda Hertita Pratama</h5>
+                            <h5 class="table-content">{{$user->nama}}</h5>
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Email</h3>
-                            <h5 class="table-content">yolandahertita903@gmail.com</h5>
+                            <h5 class="table-content">{{$user->email}}</h5>
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">Alamat</h3>
-                            <h5 class="table-content">Jln Teknik Komputer Gg II Perumahan dosen ITS Blok U no 26, ITS, Keputih, Sukolilo, Surabaya</h5>
+                            <h5 class="table-content">{{$user->alamat}}</h5>
                         </div>
                         <div class="table-row">
                             <h3 class="table-title">No Telp</h3>
-                            <h5 class="table-content">089648491314</h5>
+                            <h5 class="table-content">{{$user->nomor_telepon}}</h5>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -176,10 +177,9 @@ class RestaurantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $restaurant = $this->repository->find($id);
-
+        $restaurant = $this->repository->find(Auth('restaurant')->user()->id);
         return view('restaurant.edit', compact('restaurant'));
     }
 
@@ -193,13 +193,42 @@ class RestaurantsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(RestaurantUpdateRequest $request, $id)
+    public function update(RestaurantUpdateRequest $request)
     {
+        $id = Auth('restaurant')->user()->id;
+
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $restaurant_now = $this->repository->find(Auth('restaurant')->user()->id);
 
-            $restaurant = $this->repository->update($request->all(), $id);
+            $update = [
+                'nama' => $request['nama'],
+                'username' => $request['username'],
+                'alamat' => $request['alamat'],
+                'nomor_telepon' => $request['nomor_telepon'],
+            ];
+            
+            if(Hash::check($request['passwd'], $restaurant_now->password) && $request['password'] == $request['password_confirmation']) {
+                $update = array_merge($update, [
+                    'password' => Hash::make($request['password']),
+                ]);
+            }
+
+            $uploadedFile = $request->file('foto');
+            if ($uploadedFile != null){
+                $path = $uploadedFile->store('hotel/'.$id,'public');
+                $cropped= $request['new_image'];
+
+                list($type, $cropped) = explode(';', $cropped);
+                list(, $cropped)      = explode(',', $cropped);
+                $cropped = base64_decode($cropped);
+                Storage::put('/public/'.$path, $cropped);
+                $update = array_merge($update, [
+                    'avatar' => $path,
+                ]);
+            }
+
+            $restaurant = $this->repository->update($update,$id);
 
             $response = [
                 'message' => 'Restaurant updated.',

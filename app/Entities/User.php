@@ -24,6 +24,7 @@ class User extends Authenticatable implements Transformable
     const ATTRIBUTE_PASSWORD = 'password';
     const ATTRIBUTE_ALAMAT = 'alamat';
     const ATTRIBUTE_NOMOR_TELEPON = 'nomor_telepon';
+    const ATTRIBUTE_AVATAR = 'avatar';
 
     const ROLE_ADMIN = 1;
     const ROLE_NON_ADMIN = 0;
@@ -40,6 +41,7 @@ class User extends Authenticatable implements Transformable
         User::ATTRIBUTE_PASSWORD,
         User::ATTRIBUTE_ALAMAT,
         User::ATTRIBUTE_NOMOR_TELEPON,
+        User::ATTRIBUTE_AVATAR,
     ];
 
 }

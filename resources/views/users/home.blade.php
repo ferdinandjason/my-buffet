@@ -177,7 +177,7 @@
         @foreach($data['bestResto'] as $resto)
             <div class="card">
                 <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
+                    <img src="{{Storage::url($resto->avatar)}}" class="img-responsive">
                     <div class="card-body">
                         <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
                             {{$resto->restaurant->nama}}
@@ -186,55 +186,6 @@
                     </div>
                 </span>
             </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-        
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-        
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-        
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-        
         @endforeach
         </div>
 
@@ -251,7 +202,7 @@
         @foreach($data['recentResto'] as $resto)
             <div class="card">
                 <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
+                    <img src="{{Storage::url($resto->avatar)}}" class="img-responsive">
                     <div class="card-body">
                         <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
                             {{$resto->restaurant->nama}}
@@ -260,67 +211,6 @@
                     </div>
                 </span>
             </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-
-            <div class="card">
-                <span class="card-img">
-                    <img src="https://fillmurray.com/g/640/320" class="img-responsive">
-                    <div class="card-body">
-                        <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
-                            {{$resto->restaurant->nama}}
-                        </a></b></h5>
-                        <p>{{$resto->restaurant->alamat}}</p>
-                    </div>
-                </span>
-            </div>
-
         @endforeach
         
         </div>

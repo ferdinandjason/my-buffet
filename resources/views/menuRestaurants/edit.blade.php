@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.css">
 <style>
     html, body {
         padding-top: 0px !important;
@@ -48,7 +49,7 @@
 
 <div class="box box-success">
     <div class="row">
-        <form role="form" method="POST" action="{{route('restaurant.menu.update',$menuRestaurant->id)}}" enctype="multipart/form-data">
+        <form role="form" method="POST" action="{{route('restaurant.menu.update',$menuRestaurant->id)}}" enctype="multipart/form-data" id="menu-resto-update">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="col-md-8">
@@ -76,12 +77,13 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <div class="boxImage">
+                        <div class="boxImage" id="foodBox">
                             <img id="foodImage" src="{{Storage::url($menuRestaurant->foto)}}" alt="your image"/>
                         </div>
 
                         <label for="foto">Gambar</label>
                         <input type="file" id="foto" name="foto">
+                        <input type="hidden" id="new_image" name="new_image" value="">
 
                         <p class="help-block">Gambar harus dalam resolusi 1:1</p>
                     </div>
@@ -93,7 +95,7 @@
             
             <div class="col-md-12">
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" id="buttonedit" class="btn btn-success">Submit</button>
                 </div>
             </div>
             
@@ -103,6 +105,7 @@
 @stop
 
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#menu-restoran').DataTable();
@@ -111,10 +114,18 @@
 
         function readURL(input) {
             if (input.files && input.files[0]) {
+                $("#foodBox").css("padding-top", "0");
+
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
                     $('#foodImage').attr('src', e.target.result);
+                    $('#foodImage').croppie({
+                        viewport: { width: 300, height: 300 },
+                        boundary: { width: 300, height: 300 }
+                    });
+
+                    $(".croppie-container").css("height", "auto");   
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -124,6 +135,20 @@
         $("#foto").change(function() {
             readURL(this);
         });
+
+        $("#buttonedit").click(function(e) {
+
+            $('#foodImage').croppie('result', {
+                type: 'canvas',
+                size: {width: 450, height: 450}
+
+            }).then(function (data) {
+                $('input[name=new_image]').val(data);
+                // alert($('input[name=new_image]').val());
+
+                $("#menu-resto-update").submit();
+            });
+        })
 
     </script>
 @stop

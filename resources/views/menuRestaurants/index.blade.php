@@ -91,12 +91,12 @@
 
 @section('js')
     <script>
-    $(document).ready(function() {
-        $('#menu-restoran').DataTable();
-        let a = $('.harga');
-        for(let i = 0; i < a.length; i++){
-            a.html('Rp '+numeral(a.html()).format('0,0'))
-        }
-    } );
+    // $(document).ready(function() {
+    //     $('#menu-restoran').DataTable();
+    //     let a = $('.harga');
+    //     for(let i = 0; i < a.length; i++){
+    //         a[i].html('Rp '+numeral(a[i].html()).format('0,0'))
+    //     }
+    // } );
     </script>
 @stop

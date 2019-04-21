@@ -118,11 +118,5 @@
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     
     <script>
-    $(document).ready(function() {
-        let a = $('.harga');
-        for(let i = 0; i < a.length; i++){
-            a.html('Rp '+numeral(a.html()).format('0,0'))
-        }
-    } );
     </script>
 @stop

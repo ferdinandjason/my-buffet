@@ -175,7 +175,7 @@
                                 @foreach ($order->details as $item)
                                     <tr class="flex-item">
                                         <td style="display: flex;justify-content: space-between;">
-                                            <h5 style="margin-top: 15px;font-size: 14px !important;">{{$item->menuRestaurant->nama_makanan}}</h5>
+                                            <h5 style="margin-top: 15px;font-size: 14px !important;">{{$item->menuRestaurant->nama_makanan}} <i class="fa fa-times" aria-hidden="true"></i> {{$item->amount}}</h5>
                                         </td>
                                         <td>
                                             <h5 style="margin-top: 15px;font-size: 14px !important;text-align: right;">{{$item->sub_total}}</h5>
