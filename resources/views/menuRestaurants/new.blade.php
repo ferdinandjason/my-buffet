@@ -132,7 +132,8 @@
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                $('#foodImage').attr('src', e.target.result);
+                    $('#foodImage').attr('src', e.target.result);
+                    
                     $('#foodImage').croppie({
                         viewport: { width: 300, height: 300 },
                         boundary: { width: 300, height: 300 }

@@ -70,18 +70,18 @@
             position:absolute;
             top:10px;
             right:10px;
-        }      
+            z-index: 1;
+        }
 
     </style>
 @endsection
-
 
 
 @section('body')
     <div class="container profile-container">
         <div class="row row-profile">
             <div class="edit-profile">
-                <button class="button-eddit" onclick="location.href='#'">Edit Profile</button>
+                <button type="button" class="button-edit" onclick="location.href='{{route('user.profile.edit')}}'">Edit Profile</button>
             </div>
             
             <div class="left-profile col-md-4">
