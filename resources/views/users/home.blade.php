@@ -177,7 +177,7 @@
         @foreach($data['bestResto'] as $resto)
             <div class="card">
                 <span class="card-img">
-                    <img src="{{Storage::url($resto->avatar)}}" class="img-responsive">
+                    <img src="{{Storage::url($resto->restaurant->avatar)}}" class="img-responsive">
                     <div class="card-body">
                         <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
                             {{$resto->restaurant->nama}}
@@ -202,7 +202,7 @@
         @foreach($data['recentResto'] as $resto)
             <div class="card">
                 <span class="card-img">
-                    <img src="{{Storage::url($resto->avatar)}}" class="img-responsive">
+                    <img src="{{Storage::url($resto->restaurant->avatar)}}" class="img-responsive">
                     <div class="card-body">
                         <h5><b><a href="{{route('user.resto', $resto->restaurant->id)}}">
                             {{$resto->restaurant->nama}}
