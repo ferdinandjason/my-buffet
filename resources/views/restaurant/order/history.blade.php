@@ -10,6 +10,23 @@
             padding-top: 20px;
         }
 
+        .detail-order {
+            display: table;
+            width: 100%;
+        }
+
+        .detail-row {
+            display: table-row;
+        }
+
+        .detail-col {
+            display: table-cell;
+        }
+
+        .label-status {
+            padding: 8px 16px !important;
+        }
+
     </style>
 @endsection
 
@@ -58,14 +75,24 @@
                             <td>{{$order->id}}</td>
                             <td>{{$order->created_at}}</td>
                             <td>{{$order->total}}</td>
-                            <td>{{$order->comments}}</td>
-                            <td>{{$order->alamat}}</td>
-                            <td><span class="label label-success">{{$order->status}}</span></td>
+                            <td class="comments">{{$order->comments}}</td>
+                            <td class="alamat">{{$order->alamat}}</td>
+
+                            @if($order->status == 0)
+                                <td><span class="label label-status label-warning">New</span></td>
+                            @elseif($order->status == 1)
+                                <td><span class="label label-status label-info">Confirmed</span></td>
+                            @elseif($order->status == 2)
+                                <td><span class="label label-status label-warning">Placed</span></td>
+                            @elseif($order->status == 3)
+                                <td><span class="label label-status label-success">Done</span></td>
+                            @endif
+
                             <td>
                                 <div style="display:flex">
                                     <a href="#">
-                                        <button type="button" class="btn btn-info" style="margin-left:10px;" data-toggle="modal" data-target="#modal-detail"> 
-                                            <span class="glyphicon glyphicon-edit"></span>
+                                        <button type="button" class="btn btn-success" style="margin-left:10px;" data-toggle="modal" data-target="#modal-detail"> 
+                                            <span class="glyphicon glyphicon-eye-open"></span>
                                         </button>
                                     </a>
                                 </div>
@@ -80,13 +107,23 @@
                                         </div>
                                         
                                         <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
-                                            @foreach ($order->details as $item)
-                                            
-                                            {{$item->menuRestaurant->nama_makanan}}<br>
-                                            {{$item->amount}}<br>
-                                            {{$item->sub_total}}<br>
+                                            <div class="detail-order">
+                                                <div class="detail-row">
+                                                    <div class="detail-col"><h3>Menu</h3></div>
+                                                    <div class="detail-col"><h3>Jumlah</h3></div>
+                                                    <div class="detail-col"><h3>Sub Total</h3></div>
+                                                </div>
 
-                                            @endforeach
+                                                @foreach ($order->details as $item)
+                                                <div class="detail-row">
+                                                    <div class="detail-col"><h5>{{$item->menuRestaurant->nama_makanan}}</h5></div>
+                                                    <div class="detail-col"><h5>{{$item->amount}}</h5></div>
+                                                    <div class="detail-col"><h5>{{$item->sub_total}}</h5></div>
+                                                </div>
+                                                @endforeach
+
+                                            </div>
+                                                
                                         </div>
                                         
                                     </div>
@@ -103,18 +140,20 @@
 
 @endsection
 
-<!-- @foreach ($orders as $order)
-    <p>{{$order->id}}</p>
-    <p>{{$order->created_at}}</p>
-    <p>{{$order->total}}</p>
-    <p>{{$order->status}}</p>
-    @foreach ($order->details as $item)
-        <tr>
-            <td>{{$item->menuRestaurant->nama_makanan}}</td>
-            <td>{{$item->amount}}</td>
-            <td>{{$item->sub_total}}</td>
-        </tr>
-    @endforeach
-    <p>{{$order->comments}}</p>
-    <p>{{$order->alamat}}</p>
-@endforeach -->
+@section('js')
+
+    <script>
+        $('.comments').each(function(i, obj) {
+            if ($(obj).html() == "") {
+                $(obj).html("-");
+            }
+        });
+
+        $('.alamat').each(function(i, obj) {
+            if ($(obj).html() == "") {
+                $(obj).html("-");
+            }
+        });
+    </script>
+
+@endsection
