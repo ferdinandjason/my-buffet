@@ -70,6 +70,31 @@
             bottom: 0;
             right: 20px;
         }
+
+        @media only screen and (max-width: 480px) {
+            .row-profile {
+                height: auto;
+            }
+
+            .left-profile {
+                padding: 10px 30px 0 30px;
+            }
+
+            .right-profile {
+                padding: 20px 0 0 30px;
+            }
+
+            .personal-info, .password-account {
+                width: 90%;
+            }
+
+            .button-submit {
+                bottom: -30px;
+                right: 10px;
+            }
+
+
+        }
 </style>
 @stop
 
@@ -196,8 +221,8 @@
             reader.onload = function(e) {
                 $('#resto-avatar').attr('src', e.target.result);
                 $('#resto-avatar').croppie({
-                    viewport: { width: 300, height: 300 },
-                    boundary: { width: 300, height: 300 }
+                    viewport: { width: 240, height: 150 },
+                    boundary: { width: 240, height: 150 }
                 });
 
                 $(".croppie-container").css("height", "auto");   
@@ -215,7 +240,7 @@
 
         $('#resto-avatar').croppie('result', {
             type: 'canvas',
-            size: {width: 450, height: 450}
+            size: {width: 480, height: 300}
 
         }).then(function (data) {
             $('input[name=new_image]').val(data);

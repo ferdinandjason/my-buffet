@@ -52,13 +52,6 @@
         a.button-find:active{
             top:0.1em;
         }
-            
-        @media all and (max-width:30em){
-            a.button-find{
-                display:block;
-                margin:0.4em auto;
-            }
-        }
 
         .best-restaurants>.container, .recent-restaurants>.container{
             padding-top: 5vh;
@@ -126,6 +119,26 @@
 
         .card-body h5 a:hover {
             color: #3F7D20;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .carousel-caption {
+                top: auto;
+            }
+
+            .carousel-caption>.outer-order-form>h1 {
+                font-size: 20px;
+                padding-bottom: unset;
+            }
+
+            a.button-find {
+                padding: 0.3em 2em;
+                font-size: 16px;
+                border-radius: 0.3em;
+            }
+
+
+        
         }
 
     </style>

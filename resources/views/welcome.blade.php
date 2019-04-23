@@ -88,7 +88,6 @@
         }
 
         .homepage-how .how-container {
-            height: 40vh;
             background: #F3EFF5;
             text-align: center;
             padding-top: 10px;
@@ -113,6 +112,20 @@
             padding-left: 70px;
             padding-right: 70px;
             color: #454955
+        }
+
+        @media only screen and (max-width: 480px) {
+            .homepage-hero .hero-container {
+                text-align: center;
+                padding-right: 15px;
+            }
+
+            .how-icon-set .col-md-4 h5 {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+
+
         }
 
     </style>

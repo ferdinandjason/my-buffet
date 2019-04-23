@@ -5,6 +5,12 @@
     html, body {
         padding-top: 0px !important;
     }
+
+    @media only screen and (max-width: 480px) {
+        .box.box-success {
+            overflow-x: auto;
+        }
+    }
 </style>
 @stop
 

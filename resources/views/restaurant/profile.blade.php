@@ -69,6 +69,31 @@
             right:10px;
             z-index: 1;
         }
+
+        @media only screen and (max-width: 480px) {
+            .edit-profile {
+                top: -25px;
+                right: 0px;
+            }
+
+            .row-profile {
+                height: auto;
+            }
+
+            .left-profile {
+                padding: 10px 30px 0 30px;
+            }
+
+            .right-profile {
+                padding: 20px 0 0 30px;
+            }
+
+            .personal-info, .password-account {
+                width: 90%;
+            }
+
+
+        }
 </style>
 @stop
 
