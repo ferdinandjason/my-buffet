@@ -41,6 +41,23 @@
             background-color: white;
         }
 
+        @media only screen and (max-width: 480px) {
+            .panel-body {
+                padding: 20px 0 0 0;
+            }
+
+            .panel-footer {
+                margin: auto;
+                margin-top: 20px;
+            }
+
+            .button-home {
+                width: 50% !important;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
     </style>
 @stop
 
@@ -107,7 +124,7 @@
 
                         <div class="col-md-12 text-center"> 
                             <a href="{{route('user.home')}}">
-                                <button type="submit" class="btn btn-default" style="width: 15%; background: #72B01D; color: #0D0A0B">
+                                <button type="submit" class="btn btn-default button-home" style="width: 15%; background: #72B01D; color: #0D0A0B">
                                     Home
                                 </button>
                             </a>

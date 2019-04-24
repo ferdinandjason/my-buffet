@@ -143,6 +143,35 @@
             background: #72B01D;
         }
 
+        @media only screen and (max-width: 480px) {
+            .preview-price {
+                width: 90%;
+                margin-left: -45%;
+            }
+
+            .card .card-body .inline > *:nth-child(2) {
+                float: right;
+                width: auto;
+            }
+
+            .tambah-kurang {
+                padding-left: 5px;
+            }
+
+            .tambah-kurang .input-group {
+                width: auto !important;
+            }
+
+            .foto-kecil {
+                margin: 0;
+                margin-top: 15px;
+            }
+
+            #dynamicTable tr {
+                align-items: center;
+            }
+        }
+
     </style>
 @stop
 
@@ -151,7 +180,7 @@
     <div class="container">
         <div class="row">
         @foreach ($menuRestaurants as $menu)
-            <div class="col-sm-3 colmenu">
+            <div class="col-xs-6 col-sm-3 colmenu">
                 <div class="card">
                     <span class="card-img">
                         <div class="menuimg">
@@ -165,7 +194,7 @@
                             <div class="inline">
                                 <b><p id="harga_{{$menu->id}}" data-harga="{{$menu->harga}}">{{$menu->harga}}</p></b>
                                 <button class="btn btn-sm" id="tambah_{{$menu->id}}" onclick="pilihMenu({{$menu->id}}, '{{$menu->nama_makanan}}', {{$menu->harga}})">+ Add</button>
-                                <div id="tambah_kurang_{{$menu->id}}" style="display: none;">
+                                <div class="tambah-kurang" id="tambah_kurang_{{$menu->id}}" style="display: none;">
                                     <div class="input-group" style="width: 150px;">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="jumlah_{{$menu->id}}" id="__{{$menu->id}}">
