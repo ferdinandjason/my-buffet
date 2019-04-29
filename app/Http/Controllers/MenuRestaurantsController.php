@@ -50,7 +50,7 @@ class MenuRestaurantsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $menuRestaurants = $this->repository->all();
+        $menuRestaurants = $this->repository->getMenu(Auth('restaurant')->user()->id);
 
         if (request()->wantsJson()) {
 
